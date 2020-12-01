@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace是当前mapper文件的全局id,接口代理对象的规范-->
+<mapper namespace="com.ot.springMybatisNeo4j.dao.DeptDao">
+
+    <select id="findAll" resultType="com.ot.springMybatisNeo4j.domain.Dept">
+        select * from dept
+    </select>
+
+
+    <insert id="save" parameterType="com.ot.springMybatisNeo4j.domain.Dept">
+        insert into dept (name) values (#{name})
+    </insert>
+</mapper>

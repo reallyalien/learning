@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Premain-Class: com.ot.jvm.day01.MyAgent
+Can-Redefine-Classes: true

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace是当前mapper文件的全局id,接口代理对象的规范-->
+<mapper namespace="com.ot.mybatis.dao.UserDao">
+
+    <cache/>
+
+    <select id="findAll" resultType="com.ot.mybatis.domain.User">
+        select * from user
+    </select>
+
+    <select id="findByName" parameterType="string" resultType="com.ot.mybatis.domain.User">
+        select * from user where username like "%"#{username}"%"
+    </select>
+
+    <select id="findByName1" parameterType="string" resultType="com.ot.mybatis.domain.User">
+        select * from user where username like "%${username}%"
+    </select>
+
+    <insert id="save" parameterType="com.ot.mybatis.domain.User">
+        <selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="long">
+            select last_insert_id()
+        </selectKey>
+        insert into user (username,birthday,sex,address) values (
+        #{username},#{birthday},#{sex},#{address}
+        )
+    </insert>
+
+    <select id="findByIdAndUserName" parameterType="com.ot.mybatis.domain.User" resultType="com.ot.mybatis.domain.User">
+        select * from user
+        <where>
+            <if test="id != null and id !=0 ">
+                and id=#{id}
+            </if>
+            <if test="username != null and username !='' ">
+                and username=#{username}
+            </if>
+        </where>
+    </select>
+    <select id="findByIdAndUserNameChoose" parameterType="com.ot.mybatis.domain.User"
+            resultType="com.ot.mybatis.domain.User">
+        select * from user
+        <where>
+            <choose>
+                <when test="id != null and id != 0">
+                    and id=#{id}
+                </when>
+                <when test="username != null and username != ''">
+                    and username=#{username}
+                </when>
+                <otherwise>
+                    and 1=2
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="findByIds1" parameterType="list" resultType="com.ot.mybatis.domain.User">
+        select * from user
+        <where>
+            id in
+            <foreach collection="list" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="findByIds2" parameterType="long" resultType="com.ot.mybatis.domain.User">
+        select * from user
+        <where>
+            id in
+            <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="findByIds3" parameterType="com.ot.mybatis.domain.QueryDto" resultType="com.ot.mybatis.domain.User">
+        select * from user
+        <where>
+            id in
+            <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+
+    </select>
+    <resultMap id="userAccountMap" type="com.ot.mybatis.domain.User">
+        <id property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="username" column="username"/>
+        <collection property="accounts" ofType="com.ot.mybatis.domain.Account">
+            <id property="id" column="aid"/>
+            <result property="money" column="money"/>
+        </collection>
+    </resultMap>
+
+    <select id="findUserAndAccount" resultMap="userAccountMap">
+        select u.*,a.id aid,a.money money from user u left join account a on u.id=a.uid
+    </select>
+
+    <resultMap id="userAccountRoleMap" type="com.ot.mybatis.domain.User">
+        <id property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="username" column="username"/>
+        <collection property="accounts" ofType="com.ot.mybatis.domain.Account">
+            <id property="id" column="aid"/>
+            <result property="money" column="money"/>
+        </collection>
+        <collection property="roles" ofType="com.ot.mybatis.domain.Role">
+            <id property="id" column="rid"/>
+            <result property="roleName" column="role_name"/>
+            <result property="roleDesc" column="role_desc"/>
+        </collection>
+    </resultMap>
+    <select id="findUserAndAccountAndRole" resultMap="userAccountRoleMap">
+        SELECT
+	    u.* ,r.id rid,r.ROLE_NAME,r.ROLE_DESC,a.ID aid,a.money money
+        FROM
+            USER u
+            LEFT JOIN user_role ur ON u.id = ur.UID
+            LEFT JOIN role r ON r.ID = ur.RID
+            LEFT JOIN account a ON a.UID=u.id
+    </select>
+
+    <select id="findById" parameterType="long" resultType="com.ot.mybatis.domain.User" useCache="true">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="findAllByPage" resultType="com.ot.mybatis.domain.User" useCache="true">
+        select * from user
+    </select>
+</mapper>

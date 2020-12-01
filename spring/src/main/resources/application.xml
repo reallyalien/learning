@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.ot.spring"/>
+
+    <bean id="cat" class="com.ot.spring.beans.Cat">
+        <property name="age" value="18"/>
+        <property name="name" value="jack"/>
+    </bean>
+
+    <!--静态工厂-->
+    <bean id="clientService" class="com.ot.spring.factory.ClientService" factory-method="createInstance"/>
+    <!--静态工厂可以直接通过类调用方法创建对象，而实例工厂需要先创建对象，然后通过对象调方法成成ioc的Bean-->
+</beans>

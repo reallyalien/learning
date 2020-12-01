@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--添加配置-->
+    <settings>
+        <!--使用Mybatis的提供的日志,不用再单独引入log4j的包和配置文件-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--就算调用对象的toString方法也会延迟加载，而不是立即加载,重写覆盖了equal，hashCode，clone，toString-->
+        <setting name="lazyLoadTriggerMethods" value=""/>
+    </settings>
+    <!--插件机制-->
+    <plugins>
+        <plugin interceptor="com.ot.mybatis.plugin.MyPlugin">
+            <property name="startIndex" value="0"/>
+            <property name="pageSize" value="2"/>
+        </plugin>
+    </plugins>
+    <!--指定默认的环境-->
+    <environments default="mysql">
+        <!--环境配置，可以存在多个-->
+        <environment id="mysql">
+            <!--使用了JDBC的事务管理-->
+            <transactionManager type="JDBC"/>
+            <!--先配置为POOLED,代表以池的形式管理连接-->
+            <dataSource type="com.ot.mybatis.config.DruidSourceFactory">
+                <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+                <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/mybatisdb"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mapper/UserDao.xml"></mapper>
+        <mapper resource="mapper/AccountDao.xml"></mapper>
+    </mappers>
+
+</configuration>
