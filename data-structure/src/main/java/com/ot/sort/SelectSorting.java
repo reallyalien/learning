@@ -35,8 +35,7 @@ public class SelectSorting {
                 //第一轮循环结束，交换第i个数和最小值
                 arr[minIndex] = arr[i];
                 arr[i] = min;
-            }
-            else {
+            } else {
                 flag = false;
             }
 //            System.out.printf("第%d次排序后的数组:%s\n", i + 1, Arrays.toString(arr));
