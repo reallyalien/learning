@@ -7,9 +7,9 @@ public class SortingSpeedTest {
     }
 
     public static void test() {
-        int[] array = new int[20_0000];
+        int[] array = new int[800_0000];
         for (int i = 0; i < array.length; i++) {
-            array[i] = (int) (Math.random() * 100_0000);//生成(0,800000)的值
+            array[i] = (int) (Math.random() * 1000_0000);//生成(0,800000)的值
         }
         long start = System.currentTimeMillis();
         //冒泡
@@ -27,7 +27,9 @@ public class SortingSpeedTest {
         //归并排序
 //        MergeSorting.sort(array, 0, array.length - 1, new int[array.length]);//0s
         //基数排序
-        RadixSorting.sort(array);
+//        RadixSorting.sort(array);
+        //堆排序
+        HeapSorting.sort(array);
         long end = System.currentTimeMillis();
         System.out.printf("耗时：%d秒", (end - start) / 1000);
     }
