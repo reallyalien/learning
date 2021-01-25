@@ -1,5 +1,8 @@
 package com.ot.netty.buf;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+
 public class A {
 
     private Integer id;
@@ -13,8 +16,15 @@ public class A {
     }
 
     public static void main(String[] args) {
-        Integer a = null;
-        int b = 129;
-        System.out.println(a == b);
+        ByteBuf buffer = Unpooled.buffer(10);
+        buffer.writeInt(3);
+        buffer.writeBytes("abc".getBytes());
+
+        System.out.println("==============");
+
+        int i = buffer.readInt();
+        byte[] arr=new byte[i];
+        ByteBuf buf = buffer.readBytes(arr);
+        System.out.println(buf);
     }
 }

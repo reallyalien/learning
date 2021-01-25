@@ -62,6 +62,7 @@ public class ClientNoSelect {
         //启动一个线程,每个3s去读取数据
         new Thread(() -> {
             while (true) {
+                System.out.println("客户端读线程：" + Thread.currentThread());
                 client.read();
                 try {
                     TimeUnit.SECONDS.sleep(3);
@@ -74,6 +75,7 @@ public class ClientNoSelect {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String msg = scanner.next();
+            System.out.println("客户端写线程：" + Thread.currentThread());
             client.sendMsg(msg);
         }
     }

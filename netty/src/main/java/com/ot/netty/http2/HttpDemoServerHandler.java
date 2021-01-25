@@ -1,4 +1,4 @@
-package http.lyx3;
+package com.ot.netty.http2;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;

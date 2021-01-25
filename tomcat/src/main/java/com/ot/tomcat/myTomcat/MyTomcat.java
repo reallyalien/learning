@@ -22,6 +22,7 @@ public class MyTomcat {
             ServerSocket serverSocket = null;
             serverSocket = new ServerSocket(port);
             while (true) {
+                System.out.println("正在监听请求");
                 Socket socket = serverSocket.accept();
                 System.out.println("客户端已建立连接");
                 OutputStream outputStream = socket.getOutputStream();

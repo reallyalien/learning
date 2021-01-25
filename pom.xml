@@ -35,5 +35,8 @@
         <module>zookeeper</module>
         <module>design-model</module>
         <module>data-structure</module>
+        <module>testjar</module>
+        <module>hadoop1</module>
+        <module>slf4j</module>
     </modules>
 </project>

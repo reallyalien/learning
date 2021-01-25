@@ -17,6 +17,7 @@ public class MyMessageDecoder extends ReplayingDecoder<Void> {
         //将得到的二进制字节码转成messageProtocol
         int length = in.readInt();
         byte[] content = new byte[length];
+        //调用readInt方法之后，内部指针会先后移动，因此读取byte直接可以获取到message
         in.readBytes(content);
         //封装成messageProtocol
         MessageProtocol messageProtocol = new MessageProtocol();

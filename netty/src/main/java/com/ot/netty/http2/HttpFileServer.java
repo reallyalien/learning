@@ -1,6 +1,5 @@
 package com.ot.netty.http2;
 
-import http.lyx3.HttpDemoServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

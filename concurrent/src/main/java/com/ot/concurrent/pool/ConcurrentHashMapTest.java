@@ -22,7 +22,7 @@ public class ConcurrentHashMapTest {
                 synchronized (lock) {
                     int key = map.get("key");
                     map.put("key", key + 1);
-                    map.computeIfAbsent()
+//                    map.computeIfAbsent()
                 }
             });
         }

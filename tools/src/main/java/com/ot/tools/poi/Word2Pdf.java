@@ -135,4 +135,9 @@ public class Word2Pdf {
 //        baos.close();
         outStream.close();
     }
+
+    public static void main(String[] args) throws IOException {
+        String s = Word2Pdf.Word2007ToHtml("d://333.doc");
+        System.out.println(s);
+    }
 }

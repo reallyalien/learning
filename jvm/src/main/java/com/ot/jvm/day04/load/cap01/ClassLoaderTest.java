@@ -10,6 +10,15 @@ import java.net.URLClassLoader;
 /**
  * 说明类加载器的唯一性
  * 这里定义了一个classloader去实现classloader，
+ *
+ * 很明显了确实通过线程上下文类加载器加载的，实际上核心包的SPI类对外部实现类的加载都是基于线程上下文
+ * 类加载器执行的，通过这种方式实现了Java核心代码内部去调用外部实现类。我们知道线程上下文类加载器默
+ * 认情况下就是AppClassLoader，那为什么不直接通过getSystemClassLoader()获取类加载器来加载classpath
+ * 路径下的类的呢？其实是可行的，但这种直接使用getSystemClassLoader()方法获取AppClassLoader加载类有
+ * 一个缺点，那就是代码部署到不同服务时会出现问题，如把代码部署到Java Web应用服务或者EJB之类的服务
+ * 将会出问题，因为这些服务使用的线程上下文类加载器并非AppClassLoader，而是Java Web应用服自家的类加
+ * 载器，类加载器不同。，所以我们应用该少用getSystemClassLoader()。总之不同的服务使用的可能默认
+ * ClassLoader是不同的，但使用线程上下文类加载器总能获取到与当前程序执行相同的ClassLoader，从而避免不必要的问题。
  */
 public class ClassLoaderTest {
     public static void main(String[] args) throws Exception {
@@ -70,6 +79,9 @@ public class ClassLoaderTest {
         ClassLoader parent = ClassLoader.getSystemClassLoader().getParent().getParent();//null
         System.out.println(contextClassLoader);
         System.out.println(parent);
+        Class<Integer> integerClass = Integer.class;
+//        Class<Number> integerClass1 = Integer.class; Integer的class对象并不是Number的class对象的子类
+        Class<? extends Number> class1 = Integer.class;
 
     }
 }

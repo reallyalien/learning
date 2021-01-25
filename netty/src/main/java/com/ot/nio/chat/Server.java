@@ -8,6 +8,10 @@ import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * 服务端只有一个线程
+ */
+
 public class Server {
     //定义属性
     private Selector selector;
@@ -21,7 +25,8 @@ public class Server {
             listenerChannel = ServerSocketChannel.open();
             listenerChannel.socket().bind(new InetSocketAddress(port));
             listenerChannel.configureBlocking(false);
-            listenerChannel.register(selector, SelectionKey.OP_ACCEPT);
+            //通过key.attachment()获取这个值
+            listenerChannel.register(selector, SelectionKey.OP_ACCEPT,"aaaaa");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,17 +34,25 @@ public class Server {
 
     //监听
     public void listener() {
+        System.out.println("listener开始：" + Thread.currentThread());
         System.out.println("服务端监听消息");
         try {
             while (true) {
                 int count = selector.select();
                 if (count > 0) {
+                    System.out.println("开始处理：" + Thread.currentThread());
                     //有事件处理
                     Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
                     while (keyIterator.hasNext()) {
                         SelectionKey key = keyIterator.next();
                         if (key.isAcceptable()) {
+                            Object attachment = key.attachment();
+                            System.out.println(attachment);
+                            System.out.println("接收accepe：" + Thread.currentThread());
                             //建立与客户端的连接
+                            //下面的2个写法其实是一样的，因为只有listenerChannel才可以接受accept,而socketChannel只能读写请求
+//                            System.out.println(key.channel().hashCode());
+//                            System.out.println(listenerChannel.hashCode());
                             SocketChannel socketChannel = listenerChannel.accept();
                             //注册
                             socketChannel.configureBlocking(false);
@@ -47,6 +60,7 @@ public class Server {
                             System.out.println(socketChannel.getRemoteAddress() + "上线");
                         }
                         if (key.isReadable()) {
+                            System.out.println("read：" + Thread.currentThread());
                             //读取数据
                             read(key);
                         }
@@ -75,7 +89,7 @@ public class Server {
             if (count > 0) {
                 //读取到数据
                 buffer.flip();
-                String msg = new String(buffer.array(),0,count);
+                String msg = new String(buffer.array(), 0, count);
                 //输出消息
                 System.out.println("from client:" + msg);
                 //向其他客户端转发消息

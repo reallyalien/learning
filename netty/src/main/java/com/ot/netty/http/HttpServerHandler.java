@@ -54,7 +54,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
             /**
              * http1.0协议每一次http请求都会打开tcp连接
              */
-            DefaultFullHttpResponse httpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_0, HttpResponseStatus.OK,content);
+            DefaultFullHttpResponse httpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK,content);
             //设置其他信息
             httpResponse.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/plain;charset=utf-8");
             httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH,content.readableBytes());

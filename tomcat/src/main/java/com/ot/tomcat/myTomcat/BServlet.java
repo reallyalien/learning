@@ -2,12 +2,12 @@ package com.ot.tomcat.myTomcat;
 
 import java.io.IOException;
 
-public class IndexServlet extends MyServlet{
+public class BServlet extends MyServlet{
 
     @Override
     public void doGet(MyRequest myRequest, MyResponse myResponse) {
         try {
-            myResponse.write("hello tomcat");
+            myResponse.write("B");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -16,7 +16,7 @@ public class IndexServlet extends MyServlet{
     @Override
     public void doPost(MyRequest myRequest, MyResponse myResponse) {
         try {
-            myResponse.write("hello tomcat");
+            myResponse.write("2");
         } catch (IOException e) {
             e.printStackTrace();
         }

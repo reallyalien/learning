@@ -18,5 +18,6 @@ public class NettyBuf01 {
         for (int i = 0; i < buffer.capacity(); i++) {
             System.out.println(buffer.readByte());
         }
+        System.out.println(buffer);
     }
 }

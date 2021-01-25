@@ -12,41 +12,26 @@
     <artifactId>tools</artifactId>
 
     <dependencies>
-
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.poi/poi &ndash;&gt;-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>4.1.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
             <version>4.1.1</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.2</version>
         </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-examples -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-excelant -->
-        <!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/fr.opensagres.xdocreport.document -->
         <dependency>
             <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>fr.opensagres.xdocreport.document</artifactId>
             <version>2.0.2</version>
         </dependency>
-
-
         <dependency>
             <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
@@ -101,18 +86,71 @@
             <version>1.6</version>
         </dependency>
         <!--neo4j驱动 -->
-        <!-- https://mvnrepository.com/artifact/org.neo4j/neo4j-jdbc-driver -->
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-jdbc-driver</artifactId>
             <version>4.0.1</version>
         </dependency>
-
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.neo4j/neo4j &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.neo4j</groupId>-->
-<!--            <artifactId>neo4j</artifactId>-->
-<!--            <version>4.0.1</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.62</version>
+        </dependency>
+        <!--hive-->
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-jdbc</artifactId>
+            <version>3.1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-runner</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-servlet</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>servlet-api-2.5</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.4.2</version>
+        </dependency>
     </dependencies>
 </project>

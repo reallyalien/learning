@@ -11,5 +11,4 @@ public class MyServletMapping {
     private String servletName;
     private String url;
     private String clazz;
-
 }

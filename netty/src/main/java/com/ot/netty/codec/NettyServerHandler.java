@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 我们自定义一个handler，这时我们自定义的handler才能称为一个handler
+ * 我们在发送数据的时候没有进行任务编码，因此我们添加的ProtoHandler就会处理我们的数据
  */
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     /**

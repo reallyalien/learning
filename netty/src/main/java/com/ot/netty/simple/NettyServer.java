@@ -6,6 +6,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+/**
+ * AbstractNioChannel 是NioServerSocketChanneImpl的父类，其持有jdk的ServerSocketChannel，然后设置非阻塞，和接收SelectorKey.Op_accept
+ * 事件
+ */
 public class NettyServer {
 
     public static void main(String[] args) throws InterruptedException {
@@ -15,7 +19,7 @@ public class NettyServer {
         //2个都是无限循环
         //bossGroup和workGroup含有的子线程默认是cpu的核数*2
         NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        NioEventLoopGroup workGroup = new NioEventLoopGroup(3);
+        NioEventLoopGroup workGroup = new NioEventLoopGroup();
         try {
             //创建服务器端启动器,
             ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -37,15 +41,16 @@ public class NettyServer {
                     });//给workGroup的某一个eventLoop的对应的管道设置处理器
             System.out.println("服务器准备好....");
             //绑定一个端口，并且同步处理，生成一个channelFuture,这里相当于启动服务器,异步绑定端口，sync()阻塞直到绑定完成
+            //这里启动一个serverbootstrap只能启用1个线程，因此设置boosgroup为1
             ChannelFuture channelFuture = serverBootstrap.bind(6668).sync();
             //给future注册监听，监听我们关心的时间,如果此监听在添加到channelFuture的时候已经完成，那么此方法会被直接调用
             //也消除了手动检查对应的操作完成的必要
             channelFuture.addListener(new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
-                    if (future.isSuccess()){
+                    if (future.isSuccess()) {
                         System.out.println("监听端口6668成功");
-                    }else {
+                    } else {
                         System.out.println("监听端口6668失败");
                     }
                 }

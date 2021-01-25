@@ -8,10 +8,7 @@ public class MyServletConfig {
     public static List<MyServletMapping> servletMappingList = new ArrayList<>();
 
     static {
-        servletMappingList.add(new MyServletMapping(
-                "index",
-                "/index",
-                "com.ot.tomcat.myTomcat.IndexServlet"
-        ));
+        servletMappingList.add(new MyServletMapping("A", "/A", "com.ot.tomcat.myTomcat.AServlet"));
+        servletMappingList.add(new MyServletMapping("B", "/B", "com.ot.tomcat.myTomcat.BServlet"));
     }
 }

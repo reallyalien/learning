@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 我们自定义一个handler，这时我们自定义的handler才能称为一个handler
+ * 再数据传输过程当中 只能以buffer的形式传输，如果你直接发送的就是buffer，则就不需要编解码器的存在了
  */
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     /**
@@ -27,11 +28,11 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 //        System.out.println("ctx.channel():"+ctx.channel());
 //        System.out.println("ctx.pipeline():"+ctx.pipeline());
 //        System.out.println("ctx.channel().pipeline():"+ctx.channel().pipeline());
-        System.out.println(ctx.channel().eventLoop());
+//        System.out.println(ctx.channel().eventLoop());
 //        //将对象转成byteBuffer
-//        ByteBuf buffer = (ByteBuf) msg;
-//        System.out.println("客户端发送消息：" + buffer.toString(CharsetUtil.UTF_8));
-//        System.out.println("客户端地址：" + ctx.channel().remoteAddress().toString().substring(1));
+        ByteBuf buffer = (ByteBuf) msg;
+        System.out.println("客户端发送消息：" + buffer.toString(CharsetUtil.UTF_8));
+        System.out.println("客户端地址：" + ctx.channel().remoteAddress().toString().substring(1));
         //这里有一个特别耗费时间的操作，提交到该channel恶的eventLoop的taskQueue当中
         /**
          * 解决方案1：用户程序自定义普通任务

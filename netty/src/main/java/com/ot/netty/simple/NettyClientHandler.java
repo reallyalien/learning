@@ -27,6 +27,12 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+//        System.out.println("客户端读取线程："+Thread.currentThread().getName());
+//        System.out.println("server ctx:" + ctx);
+//        System.out.println("channel与pipeline的关系");
+//        System.out.println("ctx.channel():"+ctx.channel());
+//        System.out.println("ctx.pipeline():"+ctx.pipeline());
+//        System.out.println("ctx.channel().pipeline():"+ctx.channel().pipeline());
         ByteBuf buffer= (ByteBuf) msg;
         System.out.println("服务器回复的消息："+buffer.toString(CharsetUtil.UTF_8));
         System.out.println("服务器的地址："+ctx.channel().remoteAddress().toString().substring(1));
