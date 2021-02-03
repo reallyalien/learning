@@ -15,18 +15,18 @@ public class TestProxy {
     public void jdk(){
         //创建Me的代理对象
         Person obj = (Person) new JdkProxy().getInstance(new Me());
-        System.out.println(obj.getClass());
-        obj.findWork();
+        String work = obj.findWork();
+        System.out.println("work:"+work);
 
-
-        byte[] bytes = ProxyGenerator.generateProxyClass("$Proxy()", new Class[]{Person.class});
-        try {
-            FileOutputStream fos=new FileOutputStream("E:\\Java\\project\\learning\\spring\\src\\main\\java\\com\\ot\\spring\\proxy\\dynamicproxy\\proxy.class");
-            fos.write(bytes);
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//
+//        byte[] bytes = ProxyGenerator.generateProxyClass("$Proxy()", new Class[]{Person.class});
+//        try {
+//            FileOutputStream fos=new FileOutputStream("E:\\Java\\project\\learning\\spring\\src\\main\\java\\com\\ot\\spring\\proxy\\dynamicproxy\\proxy.class");
+//            fos.write(bytes);
+//            fos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

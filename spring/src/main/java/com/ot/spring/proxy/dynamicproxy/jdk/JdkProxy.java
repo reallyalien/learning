@@ -23,22 +23,22 @@ public class JdkProxy implements InvocationHandler {
     }
 
     /**
-     * @param proxy  生成的代理对象
-     * @param method 目标对象的方法
+     * @param proxy  生成的代理对象 确实是代理对象
+     * @param method 目标对象的方法 其实是接口的方法，
      * @param args   目标方法的参数
      * @return
      * @throws Throwable
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("代理对象方法执行前");
-        System.out.println("==============================================================");
-        System.out.println("proxy:" + proxy.getClass());
+//        System.out.println("代理对象方法执行前");
+//        System.out.println("==============================================================");
+//        System.out.println("proxy:" + proxy.getClass());
         //执行目标对象的方法
         String invoke = (String) method.invoke(target, args);
         System.out.println("方法放行之后的结果：" + invoke);
-        System.out.println("==============================================================");
-        System.out.println("代理对象方法执行后");
-        return null;
+//        System.out.println("==============================================================");
+//        System.out.println("代理对象方法执行后");
+        return invoke;
     }
 }

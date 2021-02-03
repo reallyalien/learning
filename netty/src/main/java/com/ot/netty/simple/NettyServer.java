@@ -49,6 +49,7 @@ public class NettyServer {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
                     if (future.isSuccess()) {
+                        System.out.println("监听线程："+Thread.currentThread());
                         System.out.println("监听端口6668成功");
                     } else {
                         System.out.println("监听端口6668失败");

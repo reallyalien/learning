@@ -7,6 +7,7 @@ public class ChatClientHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+        System.out.println("当前处理的io线程："+ctx.pipeline().channel().eventLoop().hashCode());
         System.out.println(msg.trim());
     }
 }
