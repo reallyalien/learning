@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
 /**
  * 更新某个对象的字段，为确保线程安全
- * 1. AtomicIntegeFieldUpdater：原子更新整型字段类；
+ * 1. AtomicIntegerFieldUpdater：原子更新整型字段类；
  * 2. AtomicLongFieldUpdater：原子更新长整型字段类；
  * 3. AtomicStampedReference：原子更新引用类型，这种更新方式会带有版本号。在更新
  * 的时候会带有版本号，是为了解决CAS的ABA问题；

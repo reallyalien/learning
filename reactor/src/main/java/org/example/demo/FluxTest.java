@@ -12,10 +12,7 @@ import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -56,6 +53,33 @@ public class FluxTest {
         range.subscribe();
         //传入consumer，订阅它并打印值
         range.subscribe(System.out::println);
+    }
+
+    @Test
+    public void test31() {
+        Flux<Integer> flux = Flux.range(1, 3);
+        flux.subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onSubscribe(Subscription subscription) {
+                System.out.println("onSubscribe");
+                subscription.request(3);
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                System.out.println("onNext");
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.out.println("onError");
+            }
+
+            @Override
+            public void onComplete() {
+                System.out.println("onComplete");
+            }
+        });
     }
 
     /**
@@ -172,14 +196,40 @@ public class FluxTest {
         //3.返回一个新的状态值，来供下次调用
         Flux<Object> flux = Flux.generate(
                 () -> 0,
-                (state, synchronousSink) -> {
-                    synchronousSink.next("3 x state" + " = " + 3 * state);
+                (state, sink) -> {
+                    sink.next("3 x state" + " = " + 3 * state);
                     if (state == 10) {
-                        synchronousSink.complete();
+                        sink.complete();
                     }
                     return state + 1;
-                });
+                },
+                System.out::println
+        );
         flux.subscribe(System.out::println);
+    }
+
+    /**
+     * 使用synchronousSink生成数据流
+     * 1. 用于计数；
+     * 2. 向“池子”放自定义的数据；
+     * 3. 告诉 generate 方法，自定义数据已发完；
+     * 4. 触发数据流
+     */
+    @Test
+    public void test71() {
+        AtomicInteger count = new AtomicInteger(1);
+        Flux.generate(sink -> {
+            sink.next(count.get() + " : " + new Date());
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (count.getAndIncrement() >= 5) {
+                sink.complete();
+            }
+
+        }).subscribe(System.out::println);
     }
 
     /**
@@ -474,21 +524,21 @@ public class FluxTest {
     public void test14() throws InterruptedException {
         Flux.range(1, 10)
                 .map(i -> {
-                    if (i ==1){
+                    if (i == 1) {
                         System.out.println("map线程：" + Thread.currentThread());
                     }
                     return i;
                 })
                 .publishOn(Schedulers.elastic())
                 .filter(i -> {
-                    if (i==1){
+                    if (i == 1) {
                         System.out.println("filter线程：" + Thread.currentThread());
                     }
                     return i % 2 == 0;
                 })
                 .publishOn(Schedulers.parallel())
                 .flatMap(i -> {
-                    if (i==2){
+                    if (i == 2) {
                         System.out.println("flatMap线程：" + Thread.currentThread());
                     }
                     return Mono.just("");
