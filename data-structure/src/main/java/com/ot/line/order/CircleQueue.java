@@ -8,7 +8,8 @@ package com.ot.line.order;
 public class CircleQueue {
     private int maxSize;//数组的最大容量
     private int front;//队列头元素的位置
-    private int rear;//队列尾部的元素的下一个
+    private int rear;//队列尾部的元素的下一个,更准确的说rear一直指向动态的预留空间,预留空间其实一直在改变
+    //如果不预留空间，队列满还是空的判断条件是一样的，无法
     private int[] arr;//实际存储元素的大小只有maxSize-1个元素
 
     public CircleQueue(int maxSize) {
@@ -21,7 +22,7 @@ public class CircleQueue {
 
     //判断队列是否满
     public boolean isFull() {
-        return size() == (maxSize-1);
+        return size() == (maxSize - 1);
     }
 
     public int size() {
@@ -48,6 +49,7 @@ public class CircleQueue {
             throw new ArrayIndexOutOfBoundsException();
         }
         int value = arr[front];
+        arr[front] = 0;
         front = (front + 1) % maxSize;
         return value;
     }
@@ -73,28 +75,17 @@ public class CircleQueue {
     public static void main(String[] args) {
         CircleQueue queue = new CircleQueue(4);
         queue.add(1);
-        int size = queue.size();
         queue.add(2);
-        size = queue.size();
         queue.add(3);
-        size = queue.size();
-        queue.add(4);
-        size = queue.size();
-        //================================================
-        int i = queue.get();
-        size = queue.size();
-        int i1 = queue.get();
-        size = queue.size();
-        int i2 = queue.get();
-        size = queue.size();
-        //================================================
-        queue.add(1);
-        size = queue.size();
-        queue.add(2);
-        size = queue.size();
-        queue.add(3);
-        size = queue.size();
-        queue.add(4);
-        size = queue.size();
+        queue.get();
+        queue.add(5);
+        queue.get();
+        queue.get();
+        queue.add(6);
+        queue.add(7);
+        queue.get();
+        queue.get();
+        queue.get();
+        System.out.println(queue);
     }
 }

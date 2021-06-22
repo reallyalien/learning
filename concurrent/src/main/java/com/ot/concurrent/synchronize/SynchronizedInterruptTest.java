@@ -1,7 +1,8 @@
 package com.ot.concurrent.synchronize;
 
 /**
- * synchronized:不可被中断的意思是，在阻塞的时候不可被中断，在获取到锁的时候就可以被中断
+ * synchronized:不可被中断的意思是，在阻塞的时候不可被中断，阻塞的时候同步代码块根本就没有进去，
+ * 在获取到锁的时候就可以被中断
  */
 
 public class SynchronizedInterruptTest {
@@ -14,7 +15,7 @@ public class SynchronizedInterruptTest {
             synchronized (o1) {
                 try {
                     System.out.println("start lock t1");
-                    Thread.sleep(20000);
+                    Thread.sleep(200000);
                     System.out.println("end lock t1");
                 } catch (InterruptedException e) {
                     System.out.println("t1 interruptedException");
@@ -28,7 +29,7 @@ public class SynchronizedInterruptTest {
             synchronized (o1) {
                 try {
                     System.out.println("start lock t2");
-                    Thread.sleep(1000);
+                    Thread.sleep(100000);
                     System.out.println("end lock t2");
                 } catch (InterruptedException e) {
                     System.out.println("t2 interruptedException");
@@ -40,6 +41,7 @@ public class SynchronizedInterruptTest {
         t2.start();
 
         t2.interrupt();//修改线程2的中断标志
-        Thread.sleep(2);
+        Thread.sleep(2000);
+
     }
 }

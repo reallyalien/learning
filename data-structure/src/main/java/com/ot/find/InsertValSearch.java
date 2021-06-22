@@ -8,7 +8,7 @@ public class InsertValSearch {
     public static void main(String[] args) {
         int[] arr = new int[100];
         for (int i = 0; i < 100; i++) {
-            arr[i]=i;
+            arr[i] = i;
         }
 
         int index = findIndex(arr, 0, arr.length - 1, 56);

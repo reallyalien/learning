@@ -139,7 +139,7 @@ public class DM {
 
     @Test
     public void findAll() throws SQLException {
-     this.queryProduct();
+     this.connect();
     }
     @Test
     public void tt11(){

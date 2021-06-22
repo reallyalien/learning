@@ -20,7 +20,9 @@ public class DoubleLinkedList<T> {
             }
             temp = temp.next;
         }
+        //上面循环结束时，temp是最后一个节点
         Node<T> newNode = new Node<>(temp, tail, data);
+        //指明新节点的前驱节点和后继节点
         temp.next = newNode;
         tail.pre = newNode;
     }
@@ -38,6 +40,7 @@ public class DoubleLinkedList<T> {
             }
             temp = temp.next;
         }
+        //在这些方法当中一定要明确循环退出的条件是什么
         //如果找到了，则temp就是所要删除的元素，如果没有找到，temp就是尾指针tail
         if (flag) {
             Node<T> next = temp.next;

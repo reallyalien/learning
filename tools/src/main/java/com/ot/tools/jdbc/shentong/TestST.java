@@ -6,7 +6,7 @@ public class TestST {
 
     public static void main(String args[]) {
 
-        String url = "jdbc:oscar://192.168.100.191:2003/OSRDB";
+        String url = "jdbc:oscar://192.168.100.191:2003";
         Connection con = null;
         Statement stmt;
         PreparedStatement pstmt;

@@ -6,6 +6,7 @@ package com.ot.jvm.day02;
  */
 public class Old {
     public static void main(String[] args) {
+
         byte[] b1 = new byte[7 * 1024 * 1024];
     }
 }

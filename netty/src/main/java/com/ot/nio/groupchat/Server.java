@@ -55,7 +55,7 @@ public class Server {
         try {
             selector = Selector.open();
             listenerChannel = ServerSocketChannel.open();
-            listenerChannel.socket().bind(new InetSocketAddress(port));
+            listenerChannel.bind(new InetSocketAddress(port));
             listenerChannel.configureBlocking(false);
             listenerChannel.register(selector, SelectionKey.OP_ACCEPT);
         } catch (IOException e) {

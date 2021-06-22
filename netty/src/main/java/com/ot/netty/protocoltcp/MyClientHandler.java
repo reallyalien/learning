@@ -11,6 +11,7 @@ public class MyClientHandler extends SimpleChannelInboundHandler<MessageProtocol
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("client active");
 //        System.out.println("客户端channelActive的pipeline().hashCode()："+ctx.pipeline().hashCode());
 //        System.out.println("客户端channelActive的channel().hashCode()："+ctx.pipeline().channel().hashCode());
         //使用客户端发送10条数据
@@ -35,6 +36,7 @@ public class MyClientHandler extends SimpleChannelInboundHandler<MessageProtocol
     //mask_channel_unregistered
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageProtocol msg) throws Exception {
+        System.out.println("client read");
 //        System.out.println("客户端channelRead0的pipeline().hashCode()："+ctx.pipeline().hashCode());
 //        System.out.println("客户端channelRead0的channel().hashCode()："+ctx.pipeline().channel().hashCode());
         int len = msg.getLen();

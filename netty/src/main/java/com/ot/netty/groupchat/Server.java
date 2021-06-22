@@ -24,19 +24,19 @@ public class Server {
     public void run() throws InterruptedException {
         //创建2个线程组
         NioEventLoopGroup boosGroup = new NioEventLoopGroup(1);//1个线程
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup(1);//8个线程
+        NioEventLoopGroup workerGroup = new NioEventLoopGroup();//8个线程
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.group(boosGroup,workerGroup)
+            serverBootstrap.group(boosGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.SO_BACKLOG,128)
-                    .childOption(ChannelOption.SO_KEEPALIVE,true)
+                    .option(ChannelOption.SO_BACKLOG, 128)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline.addLast("decode", new StringDecoder());//加入netty的解码器
-                            pipeline.addLast("encode",new StringEncoder());//加入编码起
+                            pipeline.addLast("encode", new StringEncoder());//加入编码器
                             pipeline.addLast(new ChatServerHandler());
                         }
                     });
@@ -49,6 +49,7 @@ public class Server {
             workerGroup.shutdownGracefully();
         }
     }
+
     public static void main(String[] args) throws InterruptedException {
         Server server = new Server(7000);
         server.run();

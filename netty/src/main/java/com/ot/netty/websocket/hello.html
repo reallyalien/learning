@@ -15,14 +15,14 @@
     <input type="button" value="清空内容" onclick="document.getElementById('response').value=''">
 </form>
 <script>
-    var socket;
+    let socket;
     //先判断当前浏览器是否支持websocket
     if (window.WebSocket) {
         socket = new WebSocket("ws://localhost:7000/hello");
         //相当于channelRead0,监听
         socket.onmessage = function (ev) {
             console.log(ev)
-            var rt = document.getElementById('response');
+            let rt = document.getElementById('response');
             rt.value = rt.value + "\n" + ev.data;
         };
         //相当于连接开启
@@ -31,7 +31,7 @@
         }
         socket.onclose = function (ev) {
             console.log('websocket服务关闭')
-            var rt = document.getElementById('response');
+            let rt = document.getElementById('response');
             rt.value = rt.value + "\n" + "连接关闭"
         }
 
@@ -40,9 +40,9 @@
     }
 
     //发送消息到服务器
-    function send(message) {
-        if (!window.socket) {//判断websocket是否创建好
-            return;
+    function send(message, a) {
+        if (!socket) {
+            return
         }
         //打开的状态为1
         // console.log(WebSocket.OPEN)

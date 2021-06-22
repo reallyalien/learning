@@ -1,6 +1,5 @@
 package com.ot.mybatis.plugin;
 
-import com.sun.deploy.util.ReflectionUtil;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -8,9 +7,6 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.DefaultReflectorFactory;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import sun.reflect.misc.ReflectUtil;
-
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.util.Properties;
 
@@ -84,6 +80,7 @@ public class MyPlugin implements Interceptor {
             String pageSql = sql + " " + "limit " + " " + startIndex + "," + pageSize;
             metaObject.setValue("delegate.boundSql.sql", pageSql);
         }
+        //放行方法
         return invocation.proceed();
     }
 
@@ -99,6 +96,7 @@ public class MyPlugin implements Interceptor {
         }
     }
 
+    //在初始化xml配置文件的时候就将plugin插件实例化，并将属性设置好
     public void setProperties(Properties properties) {
         this.startIndex = (String) properties.get("startIndex");
         this.pageSize = (String) properties.get("pageSize");

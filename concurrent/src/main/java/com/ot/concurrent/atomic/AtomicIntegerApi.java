@@ -42,12 +42,11 @@ public class AtomicIntegerApi {
         });
         Thread thread3 = new Thread(() -> {
             try {
-                thread2.join();
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            num.compareAndSet(110, 109);
+            num.compareAndSet(105, 109);
             System.out.println("3:" + num.get());
         });
         thread1.start();

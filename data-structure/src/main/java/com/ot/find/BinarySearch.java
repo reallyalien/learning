@@ -10,9 +10,9 @@ public class BinarySearch {
 
     public static void main(String[] args) {
         int[] arr = {1, 8, 9, 109, 109, 109, 267, 645, 8};
-//        int index = findIndex(arr, 0, arr.ngth - 1, -1);
-        List<Integer> list = findIndex2(arr, 0, arr.length, 10);
-        System.out.println(list);
+        int index = findIndex(arr, 0, arr.length - 1, 109);
+//        List<Integer> list = findIndex2(arr, 0, arr.length, 10);
+//        System.out.println(list);
     }
 
     public static int findIndex(int[] arr, int left, int right, int findVal) {

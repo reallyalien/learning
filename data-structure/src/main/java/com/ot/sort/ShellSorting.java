@@ -3,13 +3,13 @@ package com.ot.sort;
 import java.util.Arrays;
 
 /**
- * 希尔排序，
+ * 希尔排序，也是一种插入排序，简单插入排序的升级版本，也被称为缩小增量排序，是将数据进行分组然后再直接插入排序
  */
 public class ShellSorting {
 
     public static void main(String[] args) {
-        int[] arr = {8, 9, 1, 7, 2, 3, 5, 4, 6};
-        int[] ints = moveSort(arr);
+        int[] arr = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 98, 788, 72};
+        int[] ints = moveSort1(arr);
 //        int[] ints = exchangeSort(arr);
         System.out.println(Arrays.toString(ints));
     }
@@ -26,8 +26,6 @@ public class ShellSorting {
         for (int gap = arr.length / 2; gap > 0; gap /= 2) {
             //这里i从gap开始循环，
             for (int i = gap; i < arr.length; i++) {
-                //这里的j第一次循环，j-gap肯定就小于0退出循环，比如当gap等于1时，当j=1，比较完arr[1]和arr[2]之后，j-1继续比较arr[0]和
-                //arr[1],也就是j在循环过程当中会把它前面的数都得比较一遍
                 for (int j = i - gap; j >= 0; j -= gap) {
                     if (arr[j] > arr[j + gap]) {
                         temp = arr[j];
@@ -79,11 +77,27 @@ public class ShellSorting {
                 int j = i;
                 insertVal = arr[j];
                 while (j - gap >= 0 && arr[j - gap] > insertVal) {
+                    //把前一个大的值赋值给后一个,
                     arr[j] = arr[j - gap];
-                    j -=  gap;
+                    j -= gap;
                 }
                 //当退出while循环的时候，arr[j-gap+gap]就是要插入的位置
                 arr[j] = insertVal;
+            }
+        }
+        return arr;
+    }
+
+    public static int[] moveSort1(int[] arr) {
+        int val = 0;
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                val = arr[i];
+                while (i - gap >= 0 && val < arr[i - gap]) {
+                    arr[i] = arr[i - gap];
+                    i -= gap;
+                }
+                arr[i] = val;
             }
         }
         return arr;

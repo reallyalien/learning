@@ -8,7 +8,5 @@ public class ToolsMain {
 
     public static void main(String[] args) {
         SpringApplication.run(ToolsMain.class, args);
-
-
     }
 }

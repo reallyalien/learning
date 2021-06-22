@@ -1,6 +1,5 @@
 package com.ot.line.order;
 
-import org.junit.Test;
 
 public class ArrayQueue {
     private int maxSize;//数组的最大容量

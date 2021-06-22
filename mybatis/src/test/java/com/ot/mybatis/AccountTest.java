@@ -8,13 +8,13 @@ import org.junit.Test;
 import java.util.List;
 
 public class AccountTest extends BaseJunit {
-
-    @Test
-    public void findAccountWithUser(){
-        AccountDao mapper = sqlSession.getMapper(AccountDao.class);
-        List<Account> list = mapper.findAccountWithUser();
-        for (Account account : list) {
-            System.out.println(account.toString());
-        }
-    }
+//
+//    @Test
+//    public void findAccountWithUser(){
+//        AccountDao mapper = sqlSession.getMapper(AccountDao.class);
+//        List<Account> list = mapper.findAccountWithUser();
+//        for (Account account : list) {
+//            System.out.println(account.toString());
+//        }
+//    }
 }

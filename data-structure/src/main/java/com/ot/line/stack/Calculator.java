@@ -4,8 +4,10 @@ package com.ot.line.stack;
  * 中缀表达式
  */
 public class Calculator {
+
+
     public static void main(String[] args) {
-        String express = "70+30*9-20";
+        String express = "2-9-1";
         ArrayStack numStack = new ArrayStack(10);
         ArrayStack opeStack = new ArrayStack(10);
         //定义需要的变量
@@ -21,7 +23,9 @@ public class Calculator {
                 //判断符号栈是否为空
                 if (!opeStack.isEmpty()) {
                     //判断运算符的优先级，如果小于，则从数栈当中弹出2个元素和从符号栈中弹出一个运算符进行运算
+                    //因为运算符高的应该先计算
                     if (priority(c) <= priority(opeStack.peek())) {
+                        //后弹出来的应该是先入栈的，因此计算减法num2应该在前面
                         num1 = numStack.pop();
                         num2 = numStack.pop();
                         ope = opeStack.pop();
@@ -54,7 +58,7 @@ public class Calculator {
                 }
                 numStack.push(Integer.parseInt(keepNum));
                 //得清空
-                keepNum="";
+                keepNum = "";
             }
             //让index+1，判断是否到最后
             index++;

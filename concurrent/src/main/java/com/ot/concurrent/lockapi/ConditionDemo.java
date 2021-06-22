@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * ReentrantLock是互斥排他锁，同一时间只能有1个线程去执行任务，其实实际上应该是写操作互斥，读操作共享
+ * await方法，在lock之后获取到锁，await去释放锁，挂起线程，一旦满足条件就唤醒，再次获取锁
  */
 public class ConditionDemo {
 
@@ -20,7 +21,7 @@ public class ConditionDemo {
             try {
                 if (lock.tryLock(1, TimeUnit.SECONDS)) {
                     for (int i = 0; i < 10; i++) {
-                        System.out.println("A");
+                        System.out.print("A\t");
                         conditionB.signal();
                         conditionA.await();
                     }
@@ -35,7 +36,7 @@ public class ConditionDemo {
             try {
                 if (lock.tryLock(1, TimeUnit.SECONDS)) {
                     for (int i = 0; i < 10; i++) {
-                        System.out.println("B");
+                        System.out.print("B\t");
                         conditionC.signal();
                         conditionB.await();
                     }
@@ -50,7 +51,7 @@ public class ConditionDemo {
             try {
                 if (lock.tryLock(1, TimeUnit.SECONDS)) {
                     for (int i = 0; i < 10; i++) {
-                        System.out.println("C");
+                        System.out.print("C\t");
 
                         conditionA.signal();
                         conditionC.await();
@@ -63,7 +64,9 @@ public class ConditionDemo {
             }
         }, "C");
         a.start();
+        Thread.sleep(100);
         b.start();
+        Thread.sleep(100);
         c.start();
         TimeUnit.SECONDS.sleep(2);
         a.interrupt();

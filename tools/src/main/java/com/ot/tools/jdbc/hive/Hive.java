@@ -105,9 +105,9 @@ public class Hive {
     public static void main(String[] args) throws SQLException, InterruptedException {
         Connection connection = getConnection();
         String tableName = "test1.student_bck_json";
-        PreparedStatement ps = connection.prepareStatement("desc formatted " + tableName);
-        ResultSet rs = ps.executeQuery();
-        HiveQueryResultSet resultSet = (HiveQueryResultSet) rs;
-        displayResultSet(resultSet);
+//        PreparedStatement ps = connection.prepareStatement("desc formatted " + tableName);
+//        ResultSet rs = ps.executeQuery();
+//        HiveQueryResultSet resultSet = (HiveQueryResultSet) rs;
+//        displayResultSet(resultSet);
     }
 }

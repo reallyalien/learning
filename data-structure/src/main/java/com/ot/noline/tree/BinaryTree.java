@@ -357,7 +357,7 @@ public class BinaryTree {
         }
 
         /**
-         * 前序遍历非递归操作
+         * 前序遍历非递归操作，先输出跟节点
          */
         public void preOrderByStack() {
             Stack<Node> stack = new Stack<>();
@@ -381,30 +381,33 @@ public class BinaryTree {
                 while (current != null) {//处理所有左节点
                     stack.push(current);
                     current = current.left;
-
-                }//退出循环的时候，current=null
+                }
+                //退出循环的时候，current = null
                 if (!stack.isEmpty()) {//执行到这里，栈顶元素没有左孩子或者左子树都被访问了
                     current = stack.pop();
+                    //输出当前节点，当前节点已经没有左子树，但是需要处理右子树
                     System.out.println(current);
                     current = current.right;//处理右节点，还得遍历它的左孩子，
                 }
             }
         }
 
+        /**
+         * 后序遍历
+         */
         public void postOrderByStack() {
-            List<Node> list = new ArrayList<>();
+            Stack<Node> stack0 = new Stack<>();
             Stack<Node> stack = new Stack<>();
             stack.push(this);
             while (!stack.isEmpty()) {
                 Node current = stack.pop();
                 if (current == null) continue;
-                list.add(current);
+                stack0.push(current);
                 stack.push(current.left);
                 stack.push(current.right);
             }
-            Collections.reverse(list);
-            for (Node node : list) {
-                System.out.println(node);
+            while (!stack0.isEmpty()) {
+                System.out.println(stack0.pop());
             }
         }
 
@@ -430,6 +433,9 @@ public class BinaryTree {
         }
     }
 
+    //前序：1 2 3 4 5
+    //中序：2 1 4 3 5
+    //后序：2 4 5 3 1
     public static void main(String[] args) {
         BinaryTree binaryTree = new BinaryTree();
         //创建节点
@@ -442,8 +448,8 @@ public class BinaryTree {
         //手动先创建二叉树
         root.left = node1;
         root.right = node2;
-        node2.right = node3;
-        node2.left = node4;
+        node2.left = node3;
+        node2.right = node4;
         //测试遍历
 //        System.out.println("前序遍历");
 //        binaryTree.preOrder();
@@ -464,6 +470,7 @@ public class BinaryTree {
 //        binaryTree.infixOrderByStack();
         //测试前序非递归
 //        binaryTree.preOrderByStack();
+        //测试后序非递归
 //        binaryTree.postOrderByStack();
         //按层次遍历
         binaryTree.levelOrder();

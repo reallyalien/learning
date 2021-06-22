@@ -30,6 +30,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <encoding>utf-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
@@ -47,9 +48,11 @@
         <module>zookeeper</module>
         <module>design-model</module>
         <module>data-structure</module>
-        <module>testjar</module>
         <module>hadoop1</module>
-        <module>slf4j</module>
         <module>reactor</module>
+        <module>spring-session-login</module>
+        <module>java-system-manage</module>
+        <module>poi</module>
+        <module>lucene</module>
     </modules>
 </project>

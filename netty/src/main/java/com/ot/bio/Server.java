@@ -32,15 +32,16 @@ public class Server {
         try {
             byte[] bytes = new byte[1024];
             InputStream inputStream = socket.getInputStream();
-            System.out.println("连接客户端线程："+Thread.currentThread().getName());
+            String currentThreadName = Thread.currentThread().getName();
+            System.out.println("连接客户端线程：" + currentThreadName);
             while (true) {
-                System.out.println("读取数据线程："+Thread.currentThread().getName());
-                System.out.println("等待read");
+                System.out.println("读取数据线程：" + currentThreadName);
+                System.out.println("等待read:" + currentThreadName);
                 int len = inputStream.read(bytes);//没数据阻塞
-                if (len != -1){
-                    System.out.println(new String(bytes,0,len));
-                }else {
-                    System.out.println("读取结束");
+                if (len != -1) {
+                    System.out.println(new String(bytes, 0, len));
+                } else {
+                    System.out.println("读取结束:" + currentThreadName);
                 }
             }
         } catch (IOException e) {

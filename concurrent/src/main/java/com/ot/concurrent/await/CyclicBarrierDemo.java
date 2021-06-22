@@ -9,6 +9,7 @@ public class CyclicBarrierDemo {
     public static void main(String[] args) {
         ExecutorService pool = Executors.newCachedThreadPool();
         final CyclicBarrier barrier = new CyclicBarrier(3);
+//        CyclicBarrier cyclicBarrier = new CyclicBarrier(3);
         for (int i = 0; i < 3; i++) {
             Runnable runnable = new Runnable() {
                 @Override

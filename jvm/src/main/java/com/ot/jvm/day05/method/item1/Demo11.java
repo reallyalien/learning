@@ -13,6 +13,7 @@ public class Demo11 {
     /**
      * vm参数 -ea开启断言,不开启不生效。
      * @param n
+     * @throws
      * @return
      */
     public static int mod(int n){

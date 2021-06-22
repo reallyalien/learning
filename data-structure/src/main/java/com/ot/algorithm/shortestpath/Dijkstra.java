@@ -18,11 +18,17 @@ public class Dijkstra {
                 {N, 9, N, N, N, 4, N},
                 {N, N, 8, N, N, 5, 4},
                 {N, N, N, 4, 5, N, 6},
-                {2, 3, N, N, 4, 6, N},   
+                {2, 3, N, N, 4, 6, N},
         };
         Graph graph = new Graph(vertex, matrix);
         graph.show();
-        graph.dijkstra(2);
+        graph.dijkstra(6);
+        /*
+
+alreadyArr:[1, 1, 1, 1, 1, 1, 1]
+preVisited:[6, 6, 0, 5, 6, 6, 0]
+dis		  :[2, 3, 9, 10, 4, 6, 0]
+         */
     }
 
     //=============================================
@@ -60,7 +66,7 @@ public class Dijkstra {
                 update(index);
             }
             vv.show();
-            System.out.println("最短路径："+vv.getPath());
+            System.out.println("最短路径：" + vv.getPath());
         }
 
         /**
@@ -160,13 +166,14 @@ public class Dijkstra {
             return index;
         }
 
-        public int getPath(){
-            int num=0;
+        public int getPath() {
+            int num = 0;
             for (int i = 0; i < dis.length; i++) {
-                num+=dis[i];
+                num += dis[i];
             }
             return num;
         }
+
         public void show() {
             System.out.println("alreadyArr:" + Arrays.toString(alreadyArr));
             System.out.println("preVisited:" + Arrays.toString(preVisited));

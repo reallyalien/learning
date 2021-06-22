@@ -25,11 +25,11 @@ public class SortingSpeedTest {
         //快速排序
 //        QuickSorting.sort(array,0,array.length-1);
         //归并排序
-//        MergeSorting.sort(array, 0, array.length - 1, new int[array.length]);//0s
+        MergeSorting.sort(array, 0, array.length - 1, new int[array.length]);//0s
         //基数排序
 //        RadixSorting.sort(array);
         //堆排序
-        HeapSorting.sort(array);
+//        HeapSorting.sort(array);
         long end = System.currentTimeMillis();
         System.out.printf("耗时：%d秒", (end - start) / 1000);
     }

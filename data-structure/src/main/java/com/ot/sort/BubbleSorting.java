@@ -11,7 +11,7 @@ public class BubbleSorting {
 
     public static void main(String[] args) {
         int[] arr = {3, 9, -1, 10, -2};
-        int[] sort = sort(arr);
+        int[] sort = sort1(arr);
         System.out.println("最后的结果：" + Arrays.toString(sort));
     }
 
@@ -44,6 +44,20 @@ public class BubbleSorting {
             } else {
                 //重置flag，进行下一次的排序
                 flag = false;
+            }
+        }
+        return arr;
+    }
+
+    public static int[] sort1(int[] arr) {
+        int length = arr.length;
+        for (int i = 0; i < length - 1; i++) {
+            for (int j = 0; j < length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    arr[j] = arr[j] ^ arr[j + 1];
+                    arr[j + 1] = arr[j] ^ arr[j + 1];
+                    arr[j] = arr[j] ^ arr[j + 1];
+                }
             }
         }
         return arr;

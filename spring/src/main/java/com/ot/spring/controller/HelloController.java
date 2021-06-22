@@ -3,6 +3,7 @@ package com.ot.spring.controller;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 

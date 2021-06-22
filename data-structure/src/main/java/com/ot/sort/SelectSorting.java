@@ -14,7 +14,8 @@ public class SelectSorting {
     public static void main(String[] args) {
         int[] arr = {3, 9, -1, 10, -2};
         System.out.printf("没排序之前的数组: %s\n", Arrays.toString(arr));
-        sort(arr);
+        sort1(arr);
+        System.out.printf("排序之后的数组: %s\n", Arrays.toString(arr));
     }
 
     public static int[] sort(int[] arr) {
@@ -39,6 +40,25 @@ public class SelectSorting {
                 flag = false;
             }
 //            System.out.printf("第%d次排序后的数组:%s\n", i + 1, Arrays.toString(arr));
+        }
+        return arr;
+    }
+
+    public static int[] sort1(int[] arr) {
+        int length = arr.length;
+        for (int i = 0; i < length - 1; i++) {
+            int min = arr[i];
+            int index = i;
+            for (int j = i + 1; j < length; j++) {
+                if (arr[j] < min) {
+                    min = arr[j];
+                    index = j;
+                }
+            }
+            if (index != i) {
+                arr[index] = arr[i];
+                arr[i] = min;
+            }
         }
         return arr;
     }

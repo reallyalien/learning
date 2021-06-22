@@ -60,15 +60,19 @@ public class SpringConfig implements TransactionManagementConfigurer {
      */
     /**
      * 同一个service操作2个dao，connection'是一样的，生成代理的对象的时SqlSessionTemplate是不一样的，生成的代理对象也是不一样的
-     * 真正操作数据库的是DefaultSqlSession,其实就是connection在一个事务当中是一样的
+     * 真正操作数据库的是DefaultSqlSession,在一个事务当中只使用一个，其实就是connection在一个事务当中是一样的
      * 同一个service可以同时去操作其他的service，保证方法上用于注解@Transaction就可以保证用同一个connection,然后保证事务安全
      */
 
     /**
+     * 在service层面是dataSource和connectionHolder绑定
+     * 在mybatis操作层是DefaultSessionFactory与SqlSessionHolder绑定，绑定都使用的是spring的事务同步器 TransactionSynchronizationManager
+     */
+    /**
      *TransactionManagementConfigurer
      */
     /**
-     * 默认的事务管理器在创建新连接的时候，就通过TransactionSynchronizedManagement将datasource与connectionHolder绑定
+     * 默认的事务管理器在创建新连接的时候，就通过 TransactionSynchronizedManager 将datasource与connectionHolder绑定
      ThreadLocal set   2个线程同一个threadLocal对象，set值，获取当前线程的threadLocalMap，
      这个是不一样的，给不同的map设置值，key为threadLocal，值是map(key为datasource生成的，
      value是connectionHolder（对connection的包装）)

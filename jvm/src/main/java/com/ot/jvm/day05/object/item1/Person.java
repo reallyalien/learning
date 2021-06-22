@@ -1,11 +1,6 @@
 package com.ot.jvm.day05.object.item1;
 
 /**
- * @Title: Person
- * @Description: TODO
- * @Author: 六星教育     Fame老师
- * @CreateDate: 2020/4/21
- * @Version: 1.0
  */
 public class Person {
     private String name;

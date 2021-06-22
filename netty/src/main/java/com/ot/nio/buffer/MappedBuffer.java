@@ -10,7 +10,7 @@ import java.nio.channels.FileChannel;
 public class MappedBuffer {
 
     public static void main(String[] args) throws Exception {
-        RandomAccessFile rw = new RandomAccessFile("d:/1.txt", "rw");
+        RandomAccessFile rw = new RandomAccessFile("e:/1.txt", "rw");
         FileChannel channel = rw.getChannel();
         /**
          * DirectByteBuffer
@@ -20,7 +20,7 @@ public class MappedBuffer {
          */
         MappedByteBuffer mappedByteBuffer = channel.map(FileChannel.MapMode.READ_WRITE, 0, 5);
         mappedByteBuffer.put(0, (byte) 'H');
-        mappedByteBuffer.put(3, (byte) '9');
+        mappedByteBuffer.put(9, (byte) 'e');
         rw.close();
     }
 }

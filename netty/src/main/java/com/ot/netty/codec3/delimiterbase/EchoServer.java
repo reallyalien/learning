@@ -12,6 +12,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -34,6 +35,7 @@ public class EchoServer {
                             ByteBuf byteBuf = Unpooled.copiedBuffer("$_".getBytes());
                             pipeline.addLast(new DelimiterBasedFrameDecoder(1024,byteBuf));
                             pipeline.addLast(new StringDecoder());
+                            pipeline.addLast(new StringEncoder());
                             pipeline.addLast(new EchoServerHandler());
                         }
                     });

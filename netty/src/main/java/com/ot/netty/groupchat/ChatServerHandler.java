@@ -62,7 +62,7 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Date date = new Date();
         String format = sdf.format(date);
-        System.out.println("客户端：" + ctx.channel().remoteAddress() + "在" + format + "离线了\t");
+        System.out.println("客户端：" + ctx.channel().remoteAddress() + " 在 " + format + "离线了\t");
     }
 
     /**

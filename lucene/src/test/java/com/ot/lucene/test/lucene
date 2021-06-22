@@ -1,0 +1,65 @@
+   /**
+         * 通配符 ？，*的使用
+         */
+         Query queryy=queryParser.parse("Lice?sor");//使用？匹配单个字符查询
+         Query queryx=queryParser.parse("L*r");//使用*匹配多个字符查询
+        /**
+         * 布尔运算AND, OR，NOT,+,-的使用,注意：一定要是大写的AND和OR,NOT
+         */
+        Query queryo=queryParser.parse("Licensor OR ce*");//使用OR联合多关键字查询,也可用空格代替OR
+        Query queryoo=queryParser.parse(" Licensor ce*");//这个和使用OR一样的效果
+        Query queryjia=queryParser.parse("+Licensor Wildcard");//+代表必须的条件，搜索文档必须包含Licensor 可能有Wildcard
+        Query querya=queryParser.parse("Licensor AND ce* AND Licenso?");//使用AND取多个关键字的并集查询
+        Query queryNot=queryParser.parse("'Lincensor Apache' NOT 'Apache Licensor'");//搜索Lincensor Apache而不是Apache Licensor
+        Query queryjian=queryParser.parse("'Lincensor Apache' - 'Apache Licensor'");//"-"同NOT的效果一样
+
+        /**
+         * 使用正则表达式查询
+         */
+        Query queryRegular=queryParser.parse("/[Lab]icensor/");//这个匹配Lincensor，aicensor，bicensor分词
+        Query queryRegularr=queryParser.parse("/[Lab]icenso[a-z]/");//根据需要可以更灵活的使用
+        /**
+         * 使用~模糊匹配查询
+         * 这个要和*号的用法区分下，*号完整通配多个字符查询，而~不是简单的通配，这个模糊匹配和Lucene的评分有关
+         */
+        Query queryFuzzy=queryParser.parse("icensor~");//可以查到Licensor关键字，而queryParser.parse("icensor*")查不到
+        Query queryFuzzyparam=queryParser.parse("Licens~1");//~后面可加0-2的整数来制定模糊匹配度，默认不加为1
+        Query queryFuzzyParam=queryParser.parse("Licens cens ~0");//~还可以模糊匹配差异化N字符数的多个关键字
+        /**
+         * 范围查询,多用于数字和时间的查询
+         */
+        Query queryRange =queryParser.parse("{abc TO Licens}");//{}abc与Licenszhi间的文件，不包含
+        Query queryRangex =queryParser.parse("[abc TO Licens]");//{}abc与Licenszhi间的文件,包含本身
+        /**
+         * 关键字加权处理查询
+         */
+        //默认为1，可加权可降权，可通过加权处理给匹配的结果排序
+        Query queryBoosting  =queryParser.parse("Licensor Wildcard^4 ");
+
+        /**
+         * Grouping组合查询
+         */
+        Query queryGrouping  =queryParser.parse("(+Licensor  +Wildcard) AND easier");//可使用（）组合多个条件查询
+
+         //ps: 查询部分字符需要转义处理，如（+ - && || ! ( ) { } [ ] ^ " ~ * ? : \ /）
+
+        /**
+         * 使用MultiFieldQueryParser进行多个文档域查询
+         */
+        Map boost=new HashMap();
+        boost.put("filePath",1.5F);//设置文档域的权值
+        boost.put("context",2F);
+        QueryParser multiField=new MultiFieldQueryParser(new String[]{"filePath","context"},new StandardAnalyzer(),boost);
+        Query queryq=multiField.parse("lucenetestdata");
+
+
+提升索引速度
+
+ ramBufferSizeMB = IndexWriterConfig.DEFAULT_RAM_BUFFER_SIZE_MB; 默认16MB
+ maxBufferedDocs = IndexWriterConfig.DEFAULT_MAX_BUFFERED_DOCS;  文档数，可以一起使用，先触发哪个就执行哪个
+
+ 1.尽量使用本地文件系统，如果必须使用远程，先在本地生成，再上传到远程
+ 2.使用更快的IO设备
+ 3.在索引期间，复用indexwriter
+ 4.使用ramBufferSizeMB，而不是maxBufferedDocs，固定多少大小就写入到硬盘
+ 5.加速文档的构建，比方说源内容从远程或者数数据库获取

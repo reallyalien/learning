@@ -16,6 +16,7 @@ public class SwapNum {
     public void setSuccess(Boolean success) {
         isSuccess = success;
     }
+
     private boolean isFail;
 
     public boolean isFail() {
@@ -30,7 +31,7 @@ public class SwapNum {
         Integer a = 10;
         Integer b = 20;
         System.out.println("交换前：a=" + a + "，b=" + b);
-        swap(a,b);
+        swap(a, b);
         System.out.println("交换后：a=" + a + "，b=" + b);
     }
 
@@ -40,7 +41,7 @@ public class SwapNum {
         //这里一定要new，否则在-128到127之间的数会重新读缓存，导致数据交互失败
         Integer newValue = new Integer(value1.intValue());
         //修改引用的值
-        field.set(value1,value2);
-        field.set(value2,newValue);
+        field.set(value1, value2);
+        field.set(value2, newValue);
     }
 }

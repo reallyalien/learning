@@ -15,6 +15,5 @@ public class ReflectDemo {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

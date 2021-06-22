@@ -6,10 +6,11 @@ package com.ot.line.chain;
 public class Josepfu {
 
     public static void main(String[] args) {
+        int n = 41;
         SingleCircleLinkedList list = new SingleCircleLinkedList();
-        list.add(11);
-        list.show();
-        list.chu(1, 3, 11);
+        list.add(n);
+//        list.show();
+        list.chu(1, 3, n);
     }
 
     static class SingleCircleLinkedList {
@@ -70,11 +71,12 @@ public class Josepfu {
                 }
                 helper = helper.next;
             }
-            //小孩报数从startNo开始,需要先移动指针到startNo这个位置
-            for (int i = 0; i < startNo - 1; i++) {
-                first = first.next;
-                helper = helper.next;
-            }
+            //小孩报数从startNo开始,需要先移动指针到startNo这个位置,
+            //因为初始就是正确的位置，这可不需要写
+//            for (int i = 0; i < startNo - 1; i++) {
+//                first = first.next;
+//                helper = helper.next;
+//            }
             //开始报数，让first和helper移动countNum-1次
             //循环操作
             while (true) {
@@ -87,12 +89,12 @@ public class Josepfu {
                     helper = helper.next;
                 }
                 //first指向的就是要出圈的小孩
-                System.out.printf("小孩%d出圈\n", first.no);
+                System.out.println(first.no);
                 //出圈之后，first先后移动，helper指向新的first，原来的first出去，新的一次循环开始，first自己先数一下,
                 first = first.next;
                 helper.next = first;
             }
-            System.out.printf("最后留在圈中的小孩编号%d\n", first.no);
+            System.out.println(first.no);
         }
     }
 

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UserTest extends BaseJunit {
+public class UserTest{
 
     @Test
     public void findAll() throws IOException {
@@ -26,10 +26,11 @@ public class UserTest extends BaseJunit {
         InputStream inputStream = Resources.getResourceAsStream("mybatis.xml");
         //2.创建sqlSessionFactory
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        //3.创建sqlSession
+        //3.创建sqlSession，在创建sqlSession之前创建好了执行器，如果存在相对应的拦截器，此时的执行器已经是代理对象了
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        //4.执行操作
-        List<Object> list = sqlSession.selectList("com.ot.mybatis.dao.UserDao.findAll");
+        //4.执行操作,通过sqlSession获取代理对象，底层还是通过configuration获取，一个接口对应着一个mapperProxyFactory对象，
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        List<User> all = mapper.findAll();
         //5.提交事务
         sqlSession.commit();
         //6.关闭资源
@@ -60,129 +61,129 @@ public class UserTest extends BaseJunit {
         sqlSession.close();
     }
 
-    @Test
-    public void findAll_3() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<User> all = userDao.findAll();
-    }
-
-    @Test
-    public void findByName() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<User> all = userDao.findByName("小");
-        for (User user : all) {
-            System.out.println(user);
-        }
-    }
-
-    @Test
-    public void findByName1() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<User> all = userDao.findByName1("小");
-        for (User user : all) {
-            System.out.println(user);
-        }
-    }
-
-    @Test
-    public void save() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        User user = new User();
-        user.setAddress("xxxx");
-        user.setBirthday(new Date());
-        user.setUsername("猪猪");
-        user.setSex("男");
-        Long save = userDao.save(user);
-        System.out.println(save);
-        System.out.println(user.getId());
-    }
-
-    @Test
-    public void findByIdAndUserName() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        User user = new User();
-        user.setUsername("猪猪");
-        user.setId(0L);
-        List<User> list = userDao.findByIdAndUserName(user);
-        System.out.println(list);
-    }
-
-    @Test
-    public void findByIdAndUserNameChoose() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        User user = new User();
+//    @Test
+//    public void findAll_3() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        List<User> all = userDao.findAll();
+//    }
+//
+//    @Test
+//    public void findByName() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        List<User> all = userDao.findByName("小");
+//        for (User user : all) {
+//            System.out.println(user);
+//        }
+//    }
+//
+//    @Test
+//    public void findByName1() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        List<User> all = userDao.findByName1("小");
+//        for (User user : all) {
+//            System.out.println(user);
+//        }
+//    }
+//
+//    @Test
+//    public void save() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        User user = new User();
+//        user.setAddress("xxxx");
+//        user.setBirthday(new Date());
 //        user.setUsername("猪猪");
-//        user.setId(81L);
-        List<User> list = userDao.findByIdAndUserNameChoose(user);
-        System.out.println(list);
-    }
-
-    @Test
-    public void findByIds1() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<Long> ids = new ArrayList<>();
-        ids.add(70L);
-        ids.add(80L);
-        ids.add(42L);
-        List<User> list = userDao.findByIds1(ids);
-        System.out.println(list);
-    }
-    @Test
-    public void findByIds2() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        Long[] ids = new Long[]{70L, 42L, 81L};
-        List<User> list = userDao.findByIds2(ids);
-        System.out.println(list);
-    }
-
-    @Test
-    public void findByIds3() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        QueryDto dto = new QueryDto();
-        List<Long> ids = new ArrayList<>();
-        ids.add(70L);
-        ids.add(80L);
-        ids.add(42L);
-        dto.setIds(ids);
-        List<User> list = userDao.findByIds3(dto);
-        System.out.println(list);
-    }
-    @Test
-    public void findUserAndAccount() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<User> list = userDao.findUserAndAccount();
-        for (User user : list) {
-            System.out.println(user);
-        }
-    }
-
-
-    @Test
-    public void findUserAndAccountAndRole() throws IOException {
-        //基于jdk动态代理生成实现
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<User> list = userDao.findUserAndAccountAndRole();
-        for (User user : list) {
-            System.out.println(user);
-        }
-    }
-
-    @Test
-    public void findAllByPage() throws IOException {
-        UserDao mapper = sqlSession.getMapper(UserDao.class);
-        List<User> all = mapper.findAllByPage();
-        for (User user : all) {
-            System.out.println(user);
-        }
-    }
+//        user.setSex("男");
+//        Long save = userDao.save(user);
+//        System.out.println(save);
+//        System.out.println(user.getId());
+//    }
+//
+//    @Test
+//    public void findByIdAndUserName() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        User user = new User();
+//        user.setUsername("猪猪");
+//        user.setId(0L);
+//        List<User> list = userDao.findByIdAndUserName(user);
+//        System.out.println(list);
+//    }
+//
+//    @Test
+//    public void findByIdAndUserNameChoose() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        User user = new User();
+////        user.setUsername("猪猪");
+////        user.setId(81L);
+//        List<User> list = userDao.findByIdAndUserNameChoose(user);
+//        System.out.println(list);
+//    }
+//
+//    @Test
+//    public void findByIds1() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        List<Long> ids = new ArrayList<>();
+//        ids.add(70L);
+//        ids.add(80L);
+//        ids.add(42L);
+//        List<User> list = userDao.findByIds1(ids);
+//        System.out.println(list);
+//    }
+//    @Test
+//    public void findByIds2() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        Long[] ids = new Long[]{70L, 42L, 81L};
+//        List<User> list = userDao.findByIds2(ids);
+//        System.out.println(list);
+//    }
+//
+//    @Test
+//    public void findByIds3() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        QueryDto dto = new QueryDto();
+//        List<Long> ids = new ArrayList<>();
+//        ids.add(70L);
+//        ids.add(80L);
+//        ids.add(42L);
+//        dto.setIds(ids);
+//        List<User> list = userDao.findByIds3(dto);
+//        System.out.println(list);
+//    }
+//    @Test
+//    public void findUserAndAccount() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        List<User> list = userDao.findUserAndAccount();
+//        for (User user : list) {
+//            System.out.println(user);
+//        }
+//    }
+//
+//
+//    @Test
+//    public void findUserAndAccountAndRole() throws IOException {
+//        //基于jdk动态代理生成实现
+//        UserDao userDao = sqlSession.getMapper(UserDao.class);
+//        List<User> list = userDao.findUserAndAccountAndRole();
+//        for (User user : list) {
+//            System.out.println(user);
+//        }
+//    }
+//
+//    @Test
+//    public void findAllByPage() throws IOException {
+//        UserDao mapper = sqlSession.getMapper(UserDao.class);
+//        List<User> all = mapper.findAllByPage();
+//        for (User user : all) {
+//            System.out.println(user);
+//        }
+//    }
 }

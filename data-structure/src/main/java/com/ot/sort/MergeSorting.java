@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class MergeSorting {
     public static void main(String[] args) {
-        int[] arr = {8, 4, 5, 7, 1, 3, 6, 2 };
+        int[] arr = {8, 4, 5, 7, 1, 3, 6, 2};
         int[] temp = new int[arr.length];
         sort(arr, 0, arr.length - 1, temp);
 //        System.out.println(Arrays.toString(arr));
@@ -72,7 +72,7 @@ public class MergeSorting {
             tempLeft += 1;
             t += 1;
         }
-//        System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(arr));
 //        System.out.println();
     }
 }

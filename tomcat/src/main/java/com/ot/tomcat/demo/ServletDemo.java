@@ -34,7 +34,7 @@ public class ServletDemo {
         //部署应用的context
         Context context = tomcat.addContext("/demo", null);
         //添加servlet
-        tomcat.addServlet(context,"hello",httpServlet);
+        Tomcat.addServlet(context,"hello",httpServlet);
         //添加servletMapping
         context.addServletMappingDecoded("/hello","hello");
         //启动tomcat

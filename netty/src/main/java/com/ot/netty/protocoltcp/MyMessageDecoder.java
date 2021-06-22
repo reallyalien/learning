@@ -11,6 +11,8 @@ import java.util.List;
  * 解码器
  */
 public class MyMessageDecoder extends ReplayingDecoder<Void> {
+
+
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
 //        System.out.println("MyMessageDecoder的decode被调用");

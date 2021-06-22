@@ -3,12 +3,7 @@ package com.ot.jvm.day04.deencrpt;
 import java.io.File;
 
 /**
- * 类说明：自定义的类加载器,进行异或解密。URL
- * @Title: CustomClassLoader
- * @Description: TODO
- * @Author: 六星教育     Fame老师
- * @CreateDate: 2020/4/13
- * @Version: 1.0
+ *
  */
 public class CustomClassLoader extends ClassLoader{
 

@@ -43,12 +43,12 @@ public class UserInfo implements Serializable {
         objectOutputStream.flush();
         objectOutputStream.close();
         byte[] bytes = byteArrayOutputStream.toByteArray();
-        System.out.println("jdk 序列化：" + bytes.length);
+        System.out.println("jdk  序列化：" + bytes.length);
         System.out.println("byte 序列化：" + userInfo.code().length);
     }
 
     /***
-     * jdk序列化比byte序列化很废内存
+     * jdk序列化比byte序列化很废时间
      * @throws IOException
      */
     @Test

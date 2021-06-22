@@ -1,7 +1,5 @@
 package com.ot.line.chain;
 
-import com.sun.org.apache.xpath.internal.objects.XNodeSet;
-
 import java.util.Stack;
 
 /**
@@ -122,6 +120,7 @@ public class SingleLinkedList {
             }
             temp = temp.next;
         }
+        //temp是要删除节点的前一个节点，
         if (flag) {
             temp.next = temp.next.next;
         } else {
@@ -150,7 +149,8 @@ public class SingleLinkedList {
     /**
      * 获取倒数第k个节点
      * 1.获取size
-     * 2.遍历（size-k）个元素就ok    比如有3个元素，求倒数第二个元素，遍历temp到第二个元素
+     * 2.遍历（size-k）个元素就ok    比如有5个元素，求倒数第二个元素，遍历temp到第二个元素
+     * header  O  O  O  O  O
      */
     public Node getK(int k) {
         //k的合法性需要校验，暂时不写
@@ -204,6 +204,7 @@ public class SingleLinkedList {
         Node end = mid.next; //正在遍历元素的下一个元素
         while (true) {
             mid.next = begin;
+            //如果mid是最后一个元素，遍历结束
             if (end == null) {
                 break;
             }
@@ -212,6 +213,7 @@ public class SingleLinkedList {
             mid = end;
             end = end.next;
         }
+        //遍历结束，mid是最后一个元素，也就是新链表的第一个元素
         list.head.next = mid;
         return list;
     }
@@ -286,6 +288,7 @@ public class SingleLinkedList {
 //        SingleLinkedList reverse = reverse1(linkedList);
 //        reverse.show();
         //逆序打印
-        reverseOrder(linkedList);
+        SingleLinkedList reverse1 = reverse1(linkedList);
+        System.out.println(reverse1);
     }
 }

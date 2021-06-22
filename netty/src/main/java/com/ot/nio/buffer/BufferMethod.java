@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BufferMethod {
 
-    private ByteBuffer buffer = ByteBuffer.allocate(20);
+    private ByteBuffer buffer = ByteBuffer.allocateDirect(20);
     private int time = 1_0000_0000;
 
     @Test
@@ -43,14 +43,12 @@ public class BufferMethod {
         System.out.println(buffer);
         buffer.get(3);//加索引获取值的方法不会改变position的值
         System.out.println(buffer);
-        System.out.println(new String(buffer.array()));//get并没有清除buffer里的值
+        System.out.println(new String(buffer.array(),0,buffer.position()));//get并没有清除buffer里的值
     }
 
     @Test
     public void mark() {
         buffer.position(5);
-        System.out.println(buffer);
-        buffer.position(10);
         System.out.println(buffer);
         buffer.mark();//标记一个position，以便于下次reset重置
         buffer.position(15);
@@ -74,11 +72,11 @@ public class BufferMethod {
         System.out.println(buffer);
         buffer.flip();//这里将position的位置
         System.out.println((char) buffer.get());
-//        System.out.println((char) buffer.get());
+        System.out.println((char) buffer.get());
         System.out.println(buffer);
         System.out.println("compact before " + new String(buffer.array()));
         buffer.compact();//将未读的数据拷贝到buffer的起始处，修改position指向最后一个未读的元素的后面 ，limit指向capacity
-        System.out.println("compact after " + new String(buffer.array()));
+        System.out.println("compact after  " + new String(buffer.array()));
         System.out.println(buffer);
     }
 
@@ -89,7 +87,7 @@ public class BufferMethod {
         System.out.println(Runtime.getRuntime().freeMemory() / 1024 / 1024);
 
         TimeUnit.SECONDS.sleep(3);
-        for (int i = 0; i < 20000; i++) {
+        for (int i = 0; i < 200000; i++) {
             String[] strings = new String[11111];
         }
         System.out.println(Runtime.getRuntime().maxMemory() / 1024 / 1024);
@@ -121,7 +119,7 @@ public class BufferMethod {
 
     @Test
     public void warp() {
-        byte[] bytes = new byte[10];
+        byte[] bytes = new byte[1024];
         ByteBuffer buffer = ByteBuffer.wrap(bytes, 0, 3);
         System.out.println(buffer);
     }
@@ -138,7 +136,7 @@ public class BufferMethod {
             ByteBuffer buffer = ByteBuffer.allocate(2);
         }
         long end = System.currentTimeMillis();
-        System.out.println(end - start);//2270
+        System.out.println(end - start);//335
     }
 
     /**
@@ -151,7 +149,7 @@ public class BufferMethod {
             ByteBuffer buffer = ByteBuffer.allocateDirect(2);
         }
         long end = System.currentTimeMillis();
-        System.out.println(end - start);  //57598
+        System.out.println(end - start);  //47670
     }
     @Test
     public void remain(){

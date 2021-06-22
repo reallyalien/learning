@@ -28,8 +28,8 @@
             <transactionManager type="JDBC"/>
             <!--先配置为POOLED,代表以池的形式管理连接-->
             <dataSource type="com.ot.mybatis.config.DruidSourceFactory">
-                <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-                <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/mybatisdb"/>
+                <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/mybatisdb?serverTimezone=GMT%2B8"/>
                 <property name="username" value="root"/>
                 <property name="password" value="root"/>
             </dataSource>

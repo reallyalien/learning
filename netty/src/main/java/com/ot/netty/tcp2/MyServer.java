@@ -17,7 +17,7 @@ public class MyServer {
                     .group(boosGroup,workGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new MyServerChannelInitializer());
-            ChannelFuture channelFuture = serverBootstrap.bind(7777).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(7770).sync();
             System.out.println("服务器启动成功");
             channelFuture.channel().closeFuture().sync();
 

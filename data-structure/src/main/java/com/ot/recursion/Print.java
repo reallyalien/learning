@@ -3,7 +3,7 @@ package com.ot.recursion;
 public class Print {
 
     public static void main(String[] args) {
-        int factorial = factorial(20);
+        long factorial = factorial(20);
         System.out.println(factorial);
     }
 
@@ -14,7 +14,7 @@ public class Print {
         System.out.printf("n=%d\n", n);
     }
 
-    public static int factorial(int n) {
+    public static long factorial(int n) {
         if (n == 1) {
             return 1;
         } else {

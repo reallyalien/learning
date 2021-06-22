@@ -1,7 +1,8 @@
 package com.ot.jvm.day03;
 
 /**
- *
+ *默认的堆大小是机器内存的1/64
+ * 可达性分析法，当c1和c2两个对象断掉引用之后，他们还在互相引用，各自的ji'shu
  */
 public class Count {
     private Object instance;

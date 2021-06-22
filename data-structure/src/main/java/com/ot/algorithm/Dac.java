@@ -8,8 +8,8 @@ public class Dac {
     private static int count = 0;
 
     public static void main(String[] args) {
-        resolve(3, 'a', 'b', 'c');
-        //64次 ：1844 6744 0737 0955 1615
+        resolve(40, 'a', 'b', 'c');
+        //64次 ：1844 6744 0737 0955 1615     2的64次方-1  如果1s钟一次的话，大概就是5800亿年
         System.out.println(count);
     }
 

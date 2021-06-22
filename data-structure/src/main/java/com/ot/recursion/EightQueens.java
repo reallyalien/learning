@@ -4,7 +4,7 @@ public class EightQueens {
 
     //定义一个max表示共有多少个皇后
     private int max = 8;
-    //皇后结果的数组，
+    //皇后结果的数组，下标即是行数，数值即是列数
     private int[] array = new int[max];
 
     private static int count = 0;
@@ -51,7 +51,7 @@ public class EightQueens {
      */
     public boolean judge(int n) {
         for (int i = 0; i < n; i++) {
-            //同一列 或者 在同一斜线，（横纵距离相等，即在同一斜线）
+            //同一列 或者 在同一斜线，（横纵距离相等，即在同一斜线，行-行 == 列-列）
             if (array[i] == array[n] || Math.abs(n - i) == Math.abs(array[n] - array[i])) {
                 return true;
             }

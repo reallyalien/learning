@@ -31,18 +31,19 @@ public class Server {
         //5.将通道注册到选择器上，并且指定监听接收事件这个类型 16
         //a.每个channel向selector注册时都会创建一个selectionKey
         //b.选择键将channel与selector建立连接并维护channel时事件
-        //c.可以通过canel取消键取消的键不会立即从selector中移除,
+        //c.可以通过cancel取消键取消的键不会立即从selector中移除,
         // 而是添加到cancelledKeys中,在下一次select操作时移除它.所以在调用某个key时,需要使用isValid进行校验.
-        //我们每为一个通道执行注册方法，都会返回一个selectkey，那么这个选择器上所有的selectkey通过selectkeys来获取
+        //我们每为一个通道执行注册方法，都会返回一个selectKey，那么这个选择器上所有的selectkey通过selectkeys来获取
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         System.out.println("服务端已准备...");
         //6.轮询式的获取选择器上已经准备就绪的事件
         //使用select()来监听，它会一直阻塞，直到至少一个事件到达,超时不等待
         while (true) {
             if (selector.select(2000) == 0) {
-                System.out.println("等待了2s没有监听到事件，去做其他事情");
+//                System.out.println("等待了2s没有监听到事件，去做其他事情");
             }
-            if (selector.select() > 0) {
+            System.out.println("正在等待事件就绪");
+            if (selector.select(2000) > 0) {
                 System.out.println("监听到事件，去处理");
                 //7.获取当前选择器中所有注册的选择键(已就绪的监听事件)
                 Iterator<SelectionKey> it = selector.selectedKeys().iterator();

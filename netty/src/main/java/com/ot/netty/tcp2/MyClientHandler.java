@@ -8,27 +8,22 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-public class MyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+public class MyClientHandler extends SimpleChannelInboundHandler<String> {
 
     private int count;
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         //使用客户端发送10条数据 hello,server 编号
-        for (int i = 0; i < 10; ++i) {
-            byte[] req = ("hello,server" + i + "\r\n").getBytes();
-            ByteBuf buffer = Unpooled.buffer(req.length);
-            buffer.writeBytes(req);
-            ctx.writeAndFlush(buffer);
+        for (int i = 0; i < 5; ++i) {
+            //这里解码器采用换行符先去处理文字
+            ctx.writeAndFlush("hello,server" + i + "\r\n");
         }
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-        byte[] buffer = new byte[msg.readableBytes()];
-        msg.readBytes(buffer);
-        String message = new String(buffer, StandardCharsets.UTF_8);
-        System.out.println("客户端接收到消息=" + message);
+    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+        System.out.println("客户端接收到消息=" + msg);
         System.out.println("客户端接收消息数量=" + (++this.count));
 
     }

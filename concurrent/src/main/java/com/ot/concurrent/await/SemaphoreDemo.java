@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 public class SemaphoreDemo {
 
     public static void main(String[] args) {
-        Semaphore semaphore = new Semaphore(1);
+        Semaphore semaphore = new Semaphore(5);
         Stream.of("t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8").forEach(t -> {
             new Thread(() -> {
                 try {

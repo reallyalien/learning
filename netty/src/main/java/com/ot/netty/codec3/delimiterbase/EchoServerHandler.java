@@ -16,7 +16,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("服务器第" + (++this.count) + "接收消息,消息内容：" + body);
         body += "$_";
         ByteBuf byteBuf = Unpooled.copiedBuffer(body.getBytes());
-        ctx.writeAndFlush(byteBuf);
+        ctx.writeAndFlush(body);
     }
 
     @Override

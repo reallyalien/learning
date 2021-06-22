@@ -12,19 +12,19 @@ import java.util.List;
 
 @Service
 public class DeptServiceImpl implements DeptService {
-    @Autowired
-    private DeptDao deptDao;
+//    @Autowired
+//    private DeptDao deptDao;
 
     @Override
     @Transactional
     public List<Dept> findAll() {
-        return deptDao.findAll();
+//        return deptDao.findAll();
+        return null;
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = true)
     public void save(Dept dept) {
-        deptDao.save(dept);
-
+//        deptDao.save(dept);
     }
 }
