@@ -47,6 +47,7 @@ public class SelectSorting {
     public static int[] sort1(int[] arr) {
         int length = arr.length;
         for (int i = 0; i < length - 1; i++) {
+            //先指定当前数是最小的，并记录下标
             int min = arr[i];
             int index = i;
             for (int j = i + 1; j < length; j++) {
@@ -55,6 +56,7 @@ public class SelectSorting {
                     index = j;
                 }
             }
+            //如果当前数不是最小的，则交换，否则不交换
             if (index != i) {
                 arr[index] = arr[i];
                 arr[i] = min;

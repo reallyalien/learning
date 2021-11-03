@@ -43,6 +43,10 @@ public class SpringConfig implements TransactionManagementConfigurer {
         sqlSessionFactoryBean.setConfiguration(configuration);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+//        sqlSessionFactoryBean.setCache();
+//        sqlSessionFactoryBean.setPlugins();
+        sqlSessionFactoryBean.setTypeHandlers();
+        sqlSessionFactoryBean.setTypeAliases();
         return sqlSessionFactoryBean;
     }
 
@@ -73,10 +77,11 @@ public class SpringConfig implements TransactionManagementConfigurer {
      */
     /**
      * 默认的事务管理器在创建新连接的时候，就通过 TransactionSynchronizedManager 将datasource与connectionHolder绑定
-     ThreadLocal set   2个线程同一个threadLocal对象，set值，获取当前线程的threadLocalMap，
-     这个是不一样的，给不同的map设置值，key为threadLocal，值是map(key为datasource生成的，
-     value是connectionHolder（对connection的包装）)
-     *sqlsessionFactoryBean的320行：SpringManagedTransactionFactory：这个类当中，可以查询到当前的连接跟mybatis拿到的连接是同一个
+     * ThreadLocal set   2个线程同一个threadLocal对象，set值，获取当前线程的threadLocalMap，
+     * 这个是不一样的，给不同的map设置值，key为threadLocal，值是map(key为datasource生成的，
+     * value是connectionHolder（对connection的包装）)
+     * sqlsessionFactoryBean的320行：SpringManagedTransactionFactory：这个类当中，可以查询到当前的连接跟mybatis拿到的连接是同一个
+     *
      * @param dataSource
      * @return
      */
@@ -90,6 +95,7 @@ public class SpringConfig implements TransactionManagementConfigurer {
     /**
      * https://blog.csdn.net/u010963948/article/details/79208328
      * 其返回值代表在拥有多个事务管理器的情况下默认使用的事务管理器
+     *
      * @return
      */
     @Override

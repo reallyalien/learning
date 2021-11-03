@@ -24,7 +24,7 @@ public class Server {
     public void run() throws InterruptedException {
         //创建2个线程组
         NioEventLoopGroup boosGroup = new NioEventLoopGroup(1);//1个线程
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();//8个线程
+        NioEventLoopGroup workerGroup = new NioEventLoopGroup(2);//8个线程
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(boosGroup, workerGroup)

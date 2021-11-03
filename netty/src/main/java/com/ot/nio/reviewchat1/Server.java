@@ -1,12 +1,10 @@
 package com.ot.nio.reviewchat1;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -21,7 +19,6 @@ public class Server {
         try {
             selector = Selector.open();
             serverSocketChannel = ServerSocketChannel.open();
-            serverSocketChannel.socket();
             serverSocketChannel.bind(new InetSocketAddress(port));
             serverSocketChannel.configureBlocking(false);
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
@@ -50,10 +47,15 @@ public class Server {
                         iterator.remove();
                     }
                 } else {
-                    System.out.println("等待中");
+//                    System.out.println("等待中");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                try {
+                    selector.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }
     }
@@ -65,7 +67,9 @@ public class Server {
             ByteBuffer buffer = ByteBuffer.allocate(1024);
             int read = socketChannel.read(buffer);
             if (read > 0) {
+                System.out.println(buffer);
                 String msg = new String(buffer.array(), 0, buffer.position());
+                System.out.println(Thread.currentThread());
                 System.out.println("接收到：" + socketChannel.getRemoteAddress() + "的消息：" + msg);
                 sendTo(socketChannel, msg);
             }
@@ -87,10 +91,8 @@ public class Server {
             if (channel instanceof SocketChannel) {
                 SocketChannel socketChannel = (SocketChannel) channel;
                 if (socketChannel != currentSocketChannel) {
-                    ByteBuffer buffer = ByteBuffer.allocate(1024);
                     try {
-                        buffer.put(msg.getBytes("utf-8"));
-                        buffer.flip();
+                        ByteBuffer buffer = ByteBuffer.wrap(msg.getBytes(Charset.defaultCharset()));
                         socketChannel.write(buffer);
                     } catch (Exception e) {
                         e.printStackTrace();

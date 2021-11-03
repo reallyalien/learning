@@ -25,7 +25,11 @@ public class GreedyAlgorithm {
         broadCasts.put("k3", set3);
         broadCasts.put("k4", set4);
         broadCasts.put("k5", set5);
-        System.out.println(broadCasts);
+        Set<Map.Entry<String, HashSet<String>>> entries = broadCasts.entrySet();
+        for (Map.Entry<String, HashSet<String>> entry : entries) {
+            System.out.println(entry.getKey() + "->" + entry.getValue());
+        }
+        System.out.println();
 
         //start
         Set<String> allAreas = new HashSet<>();//所有地区
@@ -45,7 +49,7 @@ public class GreedyAlgorithm {
         String maxKey = null;
         //开始遍历,当allAreas为空时，全覆盖完
         while (allAreas.size() != 0) {
-            //每次循环得置空
+            //每次循环得置空,下面的for循环走一遭才筛选出一个
             maxKey = null;
             for (String key : broadCasts.keySet()) {
                 //这个集合每次循环得clear
@@ -54,7 +58,7 @@ public class GreedyAlgorithm {
                 temp.addAll(set);
                 //求交集->重新赋给temp
                 temp.retainAll(allAreas);
-                //temp集合包含未覆盖区域的数量比maxKey指向的集合地区还要多
+                //temp集合包含未覆盖区域的数量比maxKey指向的集合地区还要多，在当前循环当中寻找一个最多的,也就是最优解
                 //masKey重置
                 if (temp.size() > 0 &&
                         (maxKey == null || temp.size() > broadCasts.get(maxKey).size())) {
@@ -66,6 +70,8 @@ public class GreedyAlgorithm {
                 selectList.add(maxKey);
                 //将maxKey指向的地区从allAreas当中清除掉
                 allAreas.removeAll(broadCasts.get(maxKey));
+                //从map当中移除掉此key
+                broadCasts.remove(maxKey);
             }
         }
         System.out.println(selectList);

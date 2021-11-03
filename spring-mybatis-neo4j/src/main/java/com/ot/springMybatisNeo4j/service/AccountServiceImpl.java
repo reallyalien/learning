@@ -13,29 +13,21 @@ import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-    //
+
     @Autowired
-    @Qualifier("accountDao")
     private AccountDao accountDao;
     @Autowired
     private DeptDao deptDao;
-//    @Autowired
-//    private AccountService accountService;
-//    @Autowired
-//    private DeptService deptService;
 
     @Transactional
     @Override
     public void transaction() {
-        Account account = new Account();
-        account.setMoney(90d);
-        account.setName("jjjjj");
-//        accountService.save(account);
-
-        Dept dept = new Dept();
-        dept.setName("aaaa");
-//        deptService.save(dept);
-//        int a = 1 / 0;
+//        Account account = new Account();
+//        account.setMoney(90d);
+//        account.setName("jjjjj");
+//
+//        Dept dept = new Dept();
+//        dept.setName("aaaa");
 
     }
 

@@ -63,7 +63,7 @@ public class HashTab {
         hashTab.add(new Employee(1, "小明"));
         hashTab.add(new Employee(2, "小红"));
         hashTab.add(new Employee(8, "小红kk"));
-        Employee employee = hashTab.find(1);
+        Employee employee = hashTab.find(10);
         System.out.println(employee);
     }
 }

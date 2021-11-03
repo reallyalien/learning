@@ -1,10 +1,10 @@
 package com.ot.noline.tree;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 /**
+ * 给定n个权值作为n个叶子节点，故赫夫曼树讲的就是所有的叶子节点
  * 赫夫曼树，树的带权路径长度最小的就是赫夫曼树，权值最大的节点离根节点越近
  * 所有叶子节点 ，权值乘以路径长度
  * <p>
@@ -16,14 +16,14 @@ public class HuffManTree {
         int[] arr = {13, 7, 8, 3, 29, 6, 1};
         List<Node> list = arrToList(arr);
         Node root = createHuffManTree(list);
-        root.preOrder();
+        root.level();
     }
 
 
     /**
      *
      */
-    public static List<Node> arrToList(int[] arr){
+    public static List<Node> arrToList(int[] arr) {
         List<Node> list = new ArrayList<>();
         Node node = null;
         for (int i = 0; i < arr.length; i++) {
@@ -32,6 +32,7 @@ public class HuffManTree {
         }
         return list;
     }
+
     /**
      * 创建赫夫曼树
      *
@@ -39,7 +40,7 @@ public class HuffManTree {
      * @param //赫夫曼树的root节点
      */
     public static Node createHuffManTree(List<Node> list) {
-        //排序
+        //当list只剩下一个元素时就是根元素
         while (list.size() > 1) {
             Collections.sort(list);
             //取出根节点权值最小的节点(二叉树)
@@ -77,9 +78,9 @@ public class HuffManTree {
             this.value = value;
         }
 
-        public Node(char c,int value) {
-            this.value = value;
+        public Node(char c, int value) {
             this.c = c;
+            this.value = value;
         }
 
         @Override
@@ -106,6 +107,21 @@ public class HuffManTree {
             }
             if (this.right != null) {
                 this.right.preOrder();
+            }
+        }
+
+        public void level() {
+            LinkedList<Node> queue = new LinkedList<>();
+            queue.offer(this);
+            while (!queue.isEmpty()) {
+                Node poll = queue.poll();
+                System.out.println(poll);
+                if (poll.left != null) {
+                    queue.offer(poll.left);
+                }
+                if (poll.right != null) {
+                    queue.offer(poll.right);
+                }
             }
         }
     }

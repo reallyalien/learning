@@ -8,7 +8,7 @@ public class FakerTest {
 
 
     public static void main(String[] args) {
-        Faker faker = new Faker(Locale.CHINA);
+        Faker faker = new Faker(Locale.ENGLISH);
         for (int i = 0; i < 100; i++) {
             User user = new User();
             user.setReallyName(faker.name().fullName());

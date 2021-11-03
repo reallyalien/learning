@@ -16,7 +16,7 @@ public class NettyServer {
 
 
     public static void startServer(String hostName, int port) {
-        startServer0(hostName,port);
+        startServer0(hostName, port);
     }
 
     //编写一个方法，完成对NettyServer的初始化和启动
@@ -25,12 +25,9 @@ public class NettyServer {
 
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-
         try {
-
             ServerBootstrap serverBootstrap = new ServerBootstrap();
-
-            serverBootstrap.group(bossGroup,workerGroup)
+            serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                                       @Override
@@ -39,23 +36,17 @@ public class NettyServer {
                                           pipeline.addLast(new StringDecoder());
                                           pipeline.addLast(new StringEncoder());
                                           pipeline.addLast(new NettyServerHandler()); //业务处理器
-
                                       }
                                   }
-
                     );
-
             ChannelFuture channelFuture = serverBootstrap.bind(hostname, port).sync();
             System.out.println("服务提供方开始提供服务~~");
             channelFuture.channel().closeFuture().sync();
-
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-
     }
 }

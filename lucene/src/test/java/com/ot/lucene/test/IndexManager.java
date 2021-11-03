@@ -49,7 +49,7 @@ public class IndexManager {
             document.add(new StringField("id", sku.getId().toString(), Field.Store.YES));
             // 商品名称 分词，索引，存储
             document.add(new TextField("name", sku.getName(), Field.Store.YES));
-            // 商品价格 分词，索引，存储
+            // 商品价格 不分词，索引，存储
             document.add(new FloatPoint("price", sku.getPrice()));
             document.add(new StoredField("price", sku.getPrice()));
             // 品牌名称 不分词，索引，存储
@@ -71,6 +71,7 @@ public class IndexManager {
 //        config.setMaxBufferedDocs(10000);
         //7.创建indexWriter写入对象
         IndexWriter writer = new IndexWriter(directory, config);
+
         //设置n个segment合并，数值越大索引越快，搜索越慢，值越小索引越慢，搜索越快
 //        writer.forceMerge(100);
         //8.写入到索引库
@@ -85,9 +86,10 @@ public class IndexManager {
     @Test
     public void search() throws ParseException, IOException {
         //1.创建搜索对象
-        StandardAnalyzer analyzer = new StandardAnalyzer();
+//        StandardAnalyzer analyzer = new StandardAnalyzer();
+        IKAnalyzer ikAnalyzer = new IKAnalyzer();
         //第一个参数是搜索域，如果没有，则默认搜索域
-        QueryParser queryParser = new QueryParser("brandName", analyzer);
+        QueryParser queryParser = new QueryParser("brandName", ikAnalyzer);
         Query query = queryParser.parse("name:手机 AND 华为");
         //2.声明索引库的位置
         FSDirectory directory = FSDirectory.open(Paths.get(INDEX_PATH));
@@ -115,7 +117,7 @@ public class IndexManager {
     }
 
     /**
-     * 更新索引
+     * 更新索引，是先查找然后删除然后在添加
      */
     @Test
     public void update() throws IOException {
@@ -206,11 +208,14 @@ public class IndexManager {
         IndexWriter writer = new IndexWriter(directory, config);
         //5.创建文档
         Document document = new Document();
-        TextField field = new TextField("name",
+        TextField name = new TextField("name",
                 "vivo X23 8GB+128GB 幻夜蓝,水滴屏全面屏,游戏手机.移\n" +
                         "动联通电信全网通4G手机的了", Field.Store.YES);
-
-        document.add(field);
+        StringField id = new StringField("id", "123456", Field.Store.YES);
+        document.add(name);
+        document.add(id);
+        document.add(new FloatPoint("price", 22.0f));
+        document.add(new StoredField("price", 22.0f));
         writer.addDocument(document);
         writer.close();
     }
@@ -223,9 +228,10 @@ public class IndexManager {
     @Test
     public void search1() throws ParseException, IOException {
         //1.创建搜索对象
-        IKAnalyzer analyzer = new IKAnalyzer();
+        IKAnalyzer analyzer = new IKAnalyzer();//brandName
         QueryParser queryParser = new QueryParser("brandName", analyzer);
-        Query query = queryParser.parse("name:华为手机");
+        //如果parse当中存在域，则从这个域当中搜索，如果只有关键字，则从上述默认域当中搜索
+        Query query = queryParser.parse("华为手机");
         //2.声明索引库位置
         FSDirectory directory = FSDirectory.open(Paths.get(INDEX_PATH));
         //3.创建索引读取对象
@@ -343,9 +349,8 @@ public class IndexManager {
     public void search5() throws ParseException, IOException {
         IKAnalyzer analyzer = new IKAnalyzer();
         //term采用关键词匹配，不支持AND等语法,建议根据情况自行选择，尽力避免大范围的日期查询
-        TermQuery termQuery = new TermQuery(new Term("name", "运动鞋"));
-        QueryParser queryParser = new QueryParser("name", analyzer);
-//        Query nameQuery = queryParser.parse("运动鞋 AND 紫色 AND 40");
+        TermQuery termQuery = new TermQuery(new Term("name", "袜"));
+        //底层就是内存映射
         Directory directory = FSDirectory.open(Paths.get(INDEX_PATH));
         IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher searcher = new IndexSearcher(reader);
@@ -385,7 +390,7 @@ public class IndexManager {
      */
     @Test
     public void search6() throws ParseException, IOException {
-        TermQuery termQuery = new TermQuery(new Term("name", "运动鞋"));
+        TermQuery termQuery = new TermQuery(new Term("name", "袜"));
         //使用boostQuery对查询的query包装一下，增加权重
         BoostQuery boostQuery = new BoostQuery(termQuery, 1.5f);
         Directory directory = FSDirectory.open(Paths.get(INDEX_PATH));
@@ -418,9 +423,9 @@ public class IndexManager {
         IKAnalyzer analyzer = new IKAnalyzer();
         String[] fields = {"name", "brandName", "categoryName"};
         Map<String, Float> boots = new HashMap<>();
-        boots.put("categoryName", 100000f);
+        boots.put("brandName", 100000f);
         MultiFieldQueryParser queryParser = new MultiFieldQueryParser(fields, analyzer, boots);
-        Query query = queryParser.parse("手机");
+        Query query = queryParser.parse("vivo");
         Directory directory = FSDirectory.open(Paths.get(INDEX_PATH));
         IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher searcher = new IndexSearcher(reader);
@@ -436,6 +441,7 @@ public class IndexManager {
             System.out.println("name:" + document.get("name"));
             System.out.println("price:" + document.get("price"));
             System.out.println("brandName:" + document.get("brandName"));
+            System.out.println("categoryName:" + document.get("categoryName"));
             System.out.println("image:" + document.get("image"));
         }
     }
@@ -457,10 +463,13 @@ public class IndexManager {
         writer.addDocument(document);
         writer.close();
     }
-
-    @Test
-    public void testTimeAPI() {
-
-    }
+    /**
+     * 1.关键词区分大小写 OR AND TO等关键词是区分大小写的，lucene只认大写的，小写的当做普通单词。
+     * 2.读写互斥性 同一时刻只能有一个对索引的写操作，在写的同时可以进行搜索
+     * 3.文件锁 在写索引的过程中强行退出将在tmp目录留下一个lock文件，使以后的写操作无法进行，可以将其手工删除
+     * 4.时间格式 lucene只支持一种时间格式yyMMddHHmmss，所以你传一个yy-MM-dd HH:mm:ss的时间给lucene它是不会当作时间来处理的
+     * 5.设置boost 有些时候在搜索时某个字段的权重需要大一些，例如你可能认为标题中出现关键词的文章比正文中出现关键词的文章更
+     * 有价值，你可以把标题的boost设置的更大，那么搜索结果会优先显示标题中出现关键词的文章.
+     */
 
 }

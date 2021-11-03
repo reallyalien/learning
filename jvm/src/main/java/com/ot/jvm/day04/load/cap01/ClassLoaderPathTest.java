@@ -24,6 +24,7 @@ public class ClassLoaderPathTest {
         System.out.println("--------------------------------------");
 
         System.out.println("系统类加载器");
+        //除了当前项目的classpath也会加载pom当中的jar包
         URLClassLoader systemClassLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
         URL[] urLs2 = systemClassLoader.getURLs();
         for (URL url : urLs2) {

@@ -10,8 +10,8 @@ public class BalanceBinaryTree {
     public static void main(String[] args) {
         BalanceBinaryTree tree = new BalanceBinaryTree();
 //        int[] arr = {4, 3, 6, 5, 7, 8};//左旋转
-//        int[] arr = {10, 12, 8, 9, 7, 6};//右旋转
-        int[] arr = {10, 7, 11, 6, 8, 9};//双旋转
+        int[] arr = {10, 12, 8, 9, 7, 6};//右旋转
+//        int[] arr = {10, 7, 11, 6, 8, 9};//双旋转
         for (int i = 0; i < arr.length; i++) {
             tree.add(new Node(arr[i]));
         }
@@ -180,7 +180,7 @@ public class BalanceBinaryTree {
             }
             //当添加完一个节点之后，如果右子树的高度-左子树的高度 > 1,左旋转
             if (rightHeight() - leftHeight() > 1) {
-                //如果当前的右节点的左子树高度大于右子树
+                //如果当前的右节点的左子树高度大于右子树，防止左子树比右子树在左旋转之后高度差更高
                 if (right != null && right.leftHeight() > right.rightHeight()) {
                     //右旋转
                     right.rightRotate();
@@ -272,7 +272,7 @@ public class BalanceBinaryTree {
             Node newNode = new Node(value);
             //2、把新节点的左子树设置为当前节点的左子树
             newNode.left = left;
-            //3、把新节点的右子树设置为当前节点的右子树的左子树
+            //3、把新节点的右子树设置为当前节点的右子树的左子树 右子树当中最小的值
             newNode.right = right.left;
             //4、把当前节点的值替换成右子节点的值
             value = right.value;
@@ -292,7 +292,7 @@ public class BalanceBinaryTree {
             newNode.right = right;
             //3、把新节点的左子树子树设置为当前节点的左子树的右子树
             newNode.left = left.right;
-            //4、把当前节点的值替换成右子节点的值
+            //4、把当前节点的值替换成左子节点的值
             value = left.value;
             //5、把当前节点的左子树设置成当前节点左子树的左子树
             left = left.left;

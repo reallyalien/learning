@@ -1,6 +1,5 @@
 package com.ot.concurrent.lockapi;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -11,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p>
  * tryLock有3种方法退出
  * 1.指定时间内获取到锁
- * 2.超时为获取到锁
+ * 2.超时未获取到锁
  * 3.在等待锁的时候被中断
  * <p>
  * lock与sync的不同
@@ -24,12 +23,20 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 
 /**
+ *
+ */
+
+/**
  * 函数流程如下：
  *
  * tryAcquire()尝试直接去获取资源，如果成功则直接返回（这里体现了非公平锁，每个线程获取锁时会尝试直接抢占加塞一次，而CLH队列中可能还有别的线程在等待）；
  * addWaiter()将该线程加入等待队列的尾部，并标记为独占模式；
  * acquireQueued()使线程阻塞在等待队列中获取资源，一直获取到资源后才返回。如果在整个等待过程中被中断过，则返回true，否则返回false。
  * 如果线程在等待过程中被中断过，它是不响应的。只是获取资源后才再进行自我中断selfInterrupt()，将中断补上。
+ */
+
+/**
+ *
  */
 public class LockInterrupt {
 
@@ -41,6 +48,7 @@ public class LockInterrupt {
                 try {
 //                    lock.tryLock(5, TimeUnit.SECONDS);
                     lock.lock();
+                    lock.tryLock();
 //                    lock.lockInterruptibly();
                     Thread.sleep(500000000);
                 } catch (Exception e) {
@@ -64,23 +72,9 @@ public class LockInterrupt {
                 }
             }
         },"t2");
-//        Thread t3 = new Thread(() -> {
-//            while (true) {
-//                try {
-////                    lock.tryLock(2, TimeUnit.SECONDS);
-//                    lock.lock();
-//                    Thread.sleep(500000000);
-////                    lock.lockInterruptibly();
-//                } catch (Exception e) {
-//                    System.out.println("t3捕获到中断异常");
-//                } finally {
-//                    lock.unlock();
-//                }
-//            }
-//        },"t3");
         t1.start();
         t2.start();
-        Thread.sleep(1_00000000);
+        Thread.sleep(3000);
         t2.interrupt();
     }
 }

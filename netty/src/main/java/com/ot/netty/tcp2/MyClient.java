@@ -11,9 +11,7 @@ public class MyClient {
     public static void main(String[] args) throws Exception {
 
         EventLoopGroup group = new NioEventLoopGroup();
-
         try {
-
             Bootstrap bootstrap = new Bootstrap();
             bootstrap
                     .group(group)

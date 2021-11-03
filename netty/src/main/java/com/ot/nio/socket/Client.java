@@ -15,7 +15,8 @@ public class Client {
         new Thread(() -> {
             try {
                 //1.获取通道,基于tcp连接
-                SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 9998));
+                SocketChannel socketChannel = SocketChannel.open();
+                socketChannel.connect(new InetSocketAddress("127.0.0.1", 9998));
                 //2.切换非阻塞模式
                 socketChannel.configureBlocking(false);
                 //3.分配缓冲区
@@ -26,7 +27,7 @@ public class Client {
                 while (scanner.hasNext()) {
                     String next = scanner.next();
                     buffer.put(next.getBytes());
-//                    System.out.println(new String(buffer.array(), 0, buffer.position()));
+                    System.out.println(buffer);
                     buffer.flip();
                     socketChannel.write(buffer);
                     buffer.clear();

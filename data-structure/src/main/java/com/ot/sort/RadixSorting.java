@@ -16,7 +16,7 @@ public class RadixSorting {
     public static int[] sort(int[] arr) {
         //定义一个二维数组,10行是因为有10个数字，竖着看这个二维数组
         int[][] bucket = new int[10][arr.length];
-        //为了记录每个桶放了多少数据，定义一个一位数组
+        //为了记录每个桶放了多少数据，定义一个一位数组，一共10个桶，因此需要1个一维数组，长度为10，下标即是基数
         int[] bucketElementNum = new int[10];
         //先得到数组当中最大数的位数
         int max = arr[0];
@@ -33,6 +33,7 @@ public class RadixSorting {
             //针对每一轮轮排序
             for (int i = 0; i < arr.length; i++) {
                 int digit = arr[i] / n % 10;
+                //基数是几就放到第几个桶里，
                 bucket[digit][bucketElementNum[digit]] = arr[i];
                 bucketElementNum[digit]++;
             }

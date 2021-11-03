@@ -167,8 +167,9 @@ public class ThreadBinaryTree {
         private String name;
         private Node left;
         private Node right;
-        //规定 leftType:0 左子树 1前驱节点
-        //     rightType: 0右子树，1后继节点
+        //规定
+        // leftType: 0左子树  1前驱节点
+        //rightType: 0右子树  1后继节点
         private int leftType;
         private int rightType;
 

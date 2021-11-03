@@ -1,5 +1,7 @@
 package com.ot.lucene.lucene.pojo;
 
+import javax.jws.WebResult;
+
 public class Sku {
 
     //商品主键

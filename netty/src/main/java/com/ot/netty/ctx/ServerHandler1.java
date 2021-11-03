@@ -9,12 +9,15 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import java.nio.charset.Charset;
 
 public class ServerHandler1 extends ChannelInboundHandlerAdapter {
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//        System.out.println(1);
+//        super.channelActive(ctx);
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("当前服务端1的io线程："+Thread.currentThread());
-        EventLoop eventExecutors = ctx.pipeline().channel().eventLoop();
-        System.out.println("当前服务端1的eventloop线程："+eventExecutors);
+        System.out.println(Thread.currentThread());
         ByteBuf buf = (ByteBuf) msg;
         byte[] bytes = new byte[buf.readableBytes()];
         buf.readBytes(bytes);

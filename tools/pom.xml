@@ -12,34 +12,21 @@
     <artifactId>tools</artifactId>
 
     <dependencies>
-
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.poi/poi &ndash;&gt;-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>4.1.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
             <version>4.1.1</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.2</version>
         </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-examples -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-excelant -->
-        <!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/fr.opensagres.xdocreport.document -->
         <dependency>
             <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>fr.opensagres.xdocreport.document</artifactId>
@@ -104,15 +91,6 @@
             <artifactId>neo4j-jdbc-driver</artifactId>
             <version>4.0.1</version>
         </dependency>
-
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.neo4j/neo4j &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.neo4j</groupId>-->
-        <!--            <artifactId>neo4j</artifactId>-->
-        <!--            <version>4.0.1</version>-->
-        <!--        </dependency>-->
-
-
         <dependency>
             <groupId>com.ot</groupId>
             <artifactId>mybatis</artifactId>
@@ -212,6 +190,12 @@
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>9.2.1.jre8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>12.2.0.1</version>
         </dependency>
     </dependencies>
 </project>

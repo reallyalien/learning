@@ -2,7 +2,7 @@ package com.ot.find;
 
 
 /**
- * 插值查找算法  数组分布均匀查找极快，
+ * 插值查找算法  数组分布均匀查找极快，其实就是一个公式
  */
 public class InsertValSearch {
     public static void main(String[] args) {

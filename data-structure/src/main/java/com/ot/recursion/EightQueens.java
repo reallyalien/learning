@@ -1,5 +1,8 @@
 package com.ot.recursion;
 
+/**
+ * 八皇后问题，一个一维数组就可以解决
+ */
 public class EightQueens {
 
     //定义一个max表示共有多少个皇后
@@ -13,15 +16,17 @@ public class EightQueens {
         EightQueens queens = new EightQueens();
         queens.check(0);
         System.out.printf("共有%d种解法", count);
+        System.out.println();
     }
 
     /**
-     * 放置第n个皇后 0-7
+     * 放置第n个皇后 0-7 ，也就是第几行，也就是数组下标
      *
-     * @param n
+     * @param n 当前第几个皇后
      * @return
      */
     public void check(int n) {
+        //递归的出口，一定要设置，否则会死循环
         if (n == max) {
             //n==8其实已经是第9个皇后，前面8个已经好了
             print();
@@ -51,6 +56,7 @@ public class EightQueens {
      */
     public boolean judge(int n) {
         for (int i = 0; i < n; i++) {
+            //肯定是不同的行，因此就不需要判断了，
             //同一列 或者 在同一斜线，（横纵距离相等，即在同一斜线，行-行 == 列-列）
             if (array[i] == array[n] || Math.abs(n - i) == Math.abs(array[n] - array[i])) {
                 return true;

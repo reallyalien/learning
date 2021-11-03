@@ -9,7 +9,7 @@ public class MySQLDemo2 {
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        final String url = "jdbc:mysql://127.0.0.1:3306";
+        final String url = "jdbc:mysql://127.0.0.1:3306/xxl_job";
         final String name = "com.mysql.jdbc.Driver";
         final String user = "root";
         final String password = "root";

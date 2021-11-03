@@ -21,8 +21,8 @@ public class SpringTest {
     /**
      * AbstractAutowireCapableBeanFactory 初始化Bean
      * 代理对象是在BeanPostProcess当中生成代理对象的
-     *
-     * AbstractAutowireCapableBeanFactory initBean 1773行
+     * <p>
+     * AbstractAutowireCapableBeanFactory initBean 1773行              MapperProxy当中的sqlSession是spring的sqlSessionTemplate
      */
     @Test
     public void springTest() {
@@ -37,20 +37,18 @@ public class SpringTest {
         //因此注入的是MapperFactoryBean的getObject()方法获取的mapper代理对象，故而mybatis和spring整合在了一起
         //在实例化MapperFactoryBean的时候，它实现了InitializingBean接口，回调afterPropertiesSet方法，会填充父类SqlSessionDaoSupport的sqlSessionTemplate属性
         //而此属性又会包含一个selSession的代理对象，代理对象的拦截器是SqlSessionInterceptor类
-        AccountService accountService = ac.getBean(AccountService.class);
-//        Object bean = ac.getBean("&accountDao");
-//        DeptService deptService = ac.getBean(DeptService.class);
-        List<Account> all = accountService.findAll();
-//        List<Dept> all1 = deptService.findAll();
-//        AccountDao bean = ac.getBean(AccountDao.class);
-//        DeptDao DeptDao = ac.getBean(DeptDao.class);
-//        List<Account> all = bean.findAll();
-//        DeptDao.findAll();
+//        AccountService accountService = ac.getBean(AccountService.class);
+        AccountDao bean = ac.getBean(AccountDao.class);
+        List<Account> all1 = bean.findAll();
+        List<Account> all2 = bean.findAll();
+//        List<Account> all = accountService.findAll();
         //执行findAll方法，先代理到MapperProxy的invoke方法，进而会调用到SqlSessionTemplate的selectList方法，通过sqlSessionTemplate内部持有的代理
-        //对象sqlSessionProxy对象，再次进入SqlSessionInterceptor的invoke方法，调用事务同步器通过DefaultSessionFactory获取sqlSession,此时的sqlSession、
+        //对象sqlSessionProxy对象，再次进入 SqlSessionInterceptor 的invoke方法，调用事务同步器通过DefaultSessionFactory获取sqlSession,此时的sqlSession、
         //才是真正操作数据库的对象，因此在一个事务当中，只有一个sqlSession
         //然后才真正执行sqlSessionProxy的selectList方法,最终执行DefaultSqlSession的selectList方法,其中会调用springManagerTransaction的获取连接的方法
         //连接被事务同步器所管理
+        //dao每掉一次方法，因为没有被事务管理器所管理，因此，每一次调用都会打开一个新的sqlSession，因此一级缓存会失效，在一个事务当中，会将当前
+        //的sqlSessionFactory与当前session绑定，因此第二次查询的时候获取的就是同一个sqlSession，即使用同一个连接
 //        System.out.println(all);
     }
 

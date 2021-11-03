@@ -22,7 +22,7 @@ public class NotInitialization {
         //System.out.println(SuperClazz.HELLOWORLD);//hello world写入、
 
         //如果使用常量去引用另外一个常量(会不会进行初始化， 1，不会2)
-        System.out.println(SuperClazz.WHAT);
+        System.out.println(SubClaszz.class);
 
 
         //System.out.println(SubClaszz.value);

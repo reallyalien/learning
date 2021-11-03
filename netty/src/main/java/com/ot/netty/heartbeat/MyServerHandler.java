@@ -5,7 +5,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 
 public class MyServerHandler extends ChannelInboundHandlerAdapter {
-
+    @Override
+    public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("handler->add");
+    }
 
     /**
      * @param ctx

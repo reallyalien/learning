@@ -11,6 +11,8 @@ import java.net.URLClassLoader;
  * 说明类加载器的唯一性
  * 这里定义了一个classloader去实现classloader，
  *
+ * instanfof 关键字判断为true的前提是 必须由同一个类加载器去加载
+ *
  * 很明显了确实通过线程上下文类加载器加载的，实际上核心包的SPI类对外部实现类的加载都是基于线程上下文
  * 类加载器执行的，通过这种方式实现了Java核心代码内部去调用外部实现类。我们知道线程上下文类加载器默
  * 认情况下就是AppClassLoader，那为什么不直接通过getSystemClassLoader()获取类加载器来加载classpath
@@ -46,42 +48,11 @@ public class ClassLoaderTest {
         //obj虽说根obj1为同一个类对象，但是由不同的类加载器去加载，所以用instanceof去判断不是同一类对象，返回false
         System.out.println(obj instanceof ClassLoaderTest);
 
-
-        System.out.println("bootstrap的加载路径");
-        URL[] urLs = Launcher.getBootstrapClassPath().getURLs();
-        for (URL urL : urLs) {
-            System.out.println(urL);
-        }
-        System.out.println("------------------------------------");
-
-        System.out.println("扩展类加载器");
-        URLClassLoader extClassLoader = (URLClassLoader) ClassLoader.getSystemClassLoader().getParent();
-        System.out.println(extClassLoader);
-        URL[] urLs1 = extClassLoader.getURLs();
-        for (URL url : urLs1) {
-            System.out.println(url);
-        }
-        System.out.println("--------------------------------------");
-
-        System.out.println("系统类加载器");
-        URLClassLoader systemClassLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-        URL[] urLs2 = systemClassLoader.getURLs();
-        for (URL url : urLs2) {
-            System.out.println(url);
-        }
-        System.out.println("自定义的类加载器");
-//        URLClassLoader selfClassLoader= (URLClassLoader) obj.getClass().getClassLoader();
-//        URL[] urLs3 = selfClassLoader.getURLs();
-//        for (URL url : urLs3) {
-//            System.out.println(url);
-//        }
+        System.out.println("当前线程类加载器");
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         ClassLoader parent = ClassLoader.getSystemClassLoader().getParent().getParent();//null
         System.out.println(contextClassLoader);
         System.out.println(parent);
-        Class<Integer> integerClass = Integer.class;
-//        Class<Number> integerClass1 = Integer.class; Integer的class对象并不是Number的class对象的子类
-        Class<? extends Number> class1 = Integer.class;
 
     }
 }

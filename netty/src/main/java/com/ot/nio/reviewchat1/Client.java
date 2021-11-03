@@ -36,6 +36,7 @@ public class Client {
         try {
             msg = username + "说" + msg;
             ByteBuffer buffer = ByteBuffer.wrap(msg.getBytes());
+            System.out.println(buffer);
             socketChannel.write(buffer);
             System.out.println("发送数据：" + msg);
         } catch (Exception e) {
@@ -51,7 +52,7 @@ public class Client {
         try {
             int read = socketChannel.read(buffer);
             if (read >0){
-                System.out.println(new String(buffer.array()));
+                System.out.println(new String(buffer.array(),0,buffer.position()));
             }
         } catch (IOException e) {
             e.printStackTrace();

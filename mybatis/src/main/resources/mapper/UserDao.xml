@@ -4,10 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace是当前mapper文件的全局id,接口代理对象的规范-->
 <mapper namespace="com.ot.mybatis.dao.UserDao">
+    <!--
+    提示 缓存只作用于 cache 标签所在的映射文件中的语句。如果你混合使用 Java API 和 XML 映射文件，在共用接口中的语句将不会被默认缓存。你需要使用 @CacheNamespaceRef 注解指定缓存作用域。
+       eviction(驱逐):代表的是缓存回收策略，目前MyBatis提供以下策略。
+       (1) LRU,最近最少使用的，一处最长时间不用的对象
+       (2) FIFO,先进先出，按对象进入缓存的顺序来移除他们
+       (3) SOFT,软引用，移除基于垃圾回收器状态和软引用规则的对象
+       (4) WEAK,弱引用，更积极的移除基于垃圾收集器状态和弱引用规则的对象。这里采用的是LRU，
+               移除最长时间不用的对形象
 
-    <cache/>
+       flushInterval:刷新间隔时间，单位为毫秒，这里配置的是100秒刷新，如果你不配置它，那么当
+       SQL被执行的时候才会去刷新缓存。配置了之后，当调用put或get或size任意方法都会判断当前时间与上次刷新时间的间隔，如果大于则刷新，其实就是
+       清空
 
-    <select id="findAll" resultType="com.ot.mybatis.domain.User">
+       size:引用数目，一个正整数，代表缓存最多可以存储多少个对象，不宜设置过大。设置过大会导致内存溢出。
+       这里配置的是1024个对象
+
+       readOnly:只读，意味着缓存数据只能读取而不能修改，这样设置的好处是我们可以快速读取缓存，缺点是我们没有
+       办法修改缓存，他的默认值是false，不允许我们修改
+       eviction="LRU" flushInterval="100000" readOnly="true" size="1024"
+   -->
+
+    <!--    <cache type="com.ot.mybatis.cache.CustomCache">-->
+
+    <!--    </cache>-->
+    <cache eviction="LRU" flushInterval="10000" size="100000"/>
+
+    <select id="findAll" resultType="com.ot.mybatis.domain.User" flushCache="false" useCache="true">
         select * from user
     </select>
 
@@ -121,12 +144,12 @@
     </resultMap>
     <select id="findUserAndAccountAndRole" resultMap="userAccountRoleMap">
         SELECT
-	    u.* ,r.id rid,r.ROLE_NAME,r.ROLE_DESC,a.ID aid,a.money money
+        u.* ,r.id rid,r.ROLE_NAME,r.ROLE_DESC,a.ID aid,a.money money
         FROM
-            USER u
-            LEFT JOIN user_role ur ON u.id = ur.UID
-            LEFT JOIN role r ON r.ID = ur.RID
-            LEFT JOIN account a ON a.UID=u.id
+        USER u
+        LEFT JOIN user_role ur ON u.id = ur.UID
+        LEFT JOIN role r ON r.ID = ur.RID
+        LEFT JOIN account a ON a.UID=u.id
     </select>
 
     <select id="findById" parameterType="long" resultType="com.ot.mybatis.domain.User" useCache="true">

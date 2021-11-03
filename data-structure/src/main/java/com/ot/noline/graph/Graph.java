@@ -36,9 +36,10 @@ public class Graph {
         graph.show();
         //测试深度遍历
 //        graph.dfs();
+//        graph.dfs(graph.visited,0);
         //测试广度
-        System.out.println("广度");
         graph.wfs();
+        System.out.println();
     }
 
     private List<String> vertexList;//存储顶点的集合
@@ -62,6 +63,8 @@ public class Graph {
     }
 
     /**
+     * 插入边
+     *
      * @param v1 点的下标，第几个顶点   A ->B    A对应的是0  B对应的是1
      * @param v2 添加边
      */
@@ -128,7 +131,8 @@ public class Graph {
     }
 
     /**
-     * 根据前一个邻接节点的下标，来获取下一个邻接节点的下标
+     * 根据v1节点的下标，来获取v2下一个邻接节点的下标
+     * v2其实就是v1节点的邻接节点，其实就是查找v1除了v2之外的邻接节点，相当于广度遍历的
      */
     public int getNextNeighbor(int v1, int v2) {
         for (int i = v2 + 1; i < vertexList.size(); i++) {
@@ -173,7 +177,7 @@ public class Graph {
             if (!visited[w]) {
                 dfs(visited, w);
             }
-            //就算w被访问过，继续访问，已经被访问过
+            //就算w被访问过，继续访问下一个节点
             w = getNextNeighbor(v, w);
         }
     }
@@ -197,7 +201,7 @@ public class Graph {
             w = getFirstNeighbor(u);
             while (w != -1) {//存在
                 if (!visited[w]) {
-                    System.out.println(getValueByIndex(w) + "->");
+                    System.out.print(getValueByIndex(w) + "->");
                     visited[w] = true;//标记已访问
                     queue.offer(w);
                 }

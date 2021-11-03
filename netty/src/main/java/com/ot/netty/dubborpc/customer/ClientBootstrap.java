@@ -1,14 +1,11 @@
 package com.ot.netty.dubborpc.customer;
 
 
+import com.ot.netty.dubborpc.common.Constant;
 import com.ot.netty.dubborpc.netty.NettyClient;
 import com.ot.netty.dubborpc.common.HelloService;
 
 public class ClientBootstrap {
-
-
-    //这里定义协议头
-    public static final String providerName = "HelloService#hello#";
 
     public static void main(String[] args) throws  Exception{
 
@@ -16,7 +13,7 @@ public class ClientBootstrap {
         NettyClient customer = new NettyClient();
 
         //创建代理对象
-        HelloService service = (HelloService) customer.getBean(HelloService.class, providerName);
+        HelloService service = (HelloService) customer.getBean(HelloService.class, Constant.PROVIDERNAME);
 
         for (;; ) {
             Thread.sleep(2 * 1000);

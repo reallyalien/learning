@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
 
-    private static final Map<String,Channel> channelMap=new ConcurrentHashMap<>();
+    private static final Map<String, Channel> channelMap = new ConcurrentHashMap<>();
     //定义一个channel组
     private static final ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);//全局事件执行器，单例对象
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -30,15 +30,15 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         //添加到map当中
-        channelMap.put(channel.remoteAddress().toString(),channel);
+//        channelMap.put(channel.remoteAddress().toString(),channel);
         //把该客户建立连接的消息推送给其他客户端
         /**
          * 该方法会将channelGroup中所有的channel遍历并发送消息，我们不需要自己遍历
          */
         Date date = new Date();
         String format = sdf.format(date);
-        channelGroup.writeAndFlush("[客户端]：" + channel.remoteAddress() + "在\t" + format + "加入聊天\n");
         channelGroup.add(channel);//把当前channel添加到group
+        channelGroup.writeAndFlush("[客户端]：" + channel.remoteAddress() + "在\t" + format + "加入聊天\n");
     }
 
     /**
@@ -49,7 +49,7 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("客户端：" + ctx.channel().remoteAddress() + "上线了\t");
+        System.out.println("客户端：" + ctx.channel().remoteAddress() + "上线了\t，当前线程：" + Thread.currentThread());
     }
 
     /**

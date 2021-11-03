@@ -1,14 +1,16 @@
 package com.ot.line.stack;
 
 /**
- * 中缀表达式
+ * 中缀表达式，计算,需要操作数栈和符号栈
  */
 public class Calculator {
 
 
     public static void main(String[] args) {
-        String express = "2-9-1";
+        String express = "2-9*1";
+        //操作数栈
         ArrayStack numStack = new ArrayStack(10);
+        //符号栈
         ArrayStack opeStack = new ArrayStack(10);
         //定义需要的变量
         int index = 0;//用于扫描
@@ -36,6 +38,7 @@ public class Calculator {
                         //当前操作符的优先级大于，直接入栈
                     }
                 }
+                //如果符号栈不为空，直接入栈
                 opeStack.push(c);
             } else {
                 //如果是数，'1'对应的是49
@@ -66,7 +69,7 @@ public class Calculator {
                 break;
             }
         }
-        //整个表达式都扫描完毕
+        //整个表达式都扫描完毕,此时更像是一个后缀表达式，如果符号栈为空，直接结束，否则弹出2个操作数，做完计算之后再次放入栈当中
         while (true) {
             //如果符号栈为空，数栈只有一个值，计算结束
             if (opeStack.isEmpty()) {

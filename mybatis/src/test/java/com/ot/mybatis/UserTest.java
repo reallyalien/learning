@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UserTest{
+public class UserTest extends BaseJunit {
 
     @Test
     public void findAll() throws IOException {
@@ -61,7 +61,7 @@ public class UserTest{
         sqlSession.close();
     }
 
-//    @Test
+    //    @Test
 //    public void findAll_3() throws IOException {
 //        //基于jdk动态代理生成实现
 //        UserDao userDao = sqlSession.getMapper(UserDao.class);
@@ -178,12 +178,14 @@ public class UserTest{
 //        }
 //    }
 //
-//    @Test
-//    public void findAllByPage() throws IOException {
-//        UserDao mapper = sqlSession.getMapper(UserDao.class);
-//        List<User> all = mapper.findAllByPage();
-//        for (User user : all) {
-//            System.out.println(user);
-//        }
-//    }
+    @Test
+    public void findAllByPage() throws IOException {
+        //解析配置文件会将xml当中的namespace所对应的接口与MapperProxyFactory放入一个map当中，通过sqlSession获取dao对象时，通过key获取到Mapper
+        //proxyFactory通过动态代理生成MapperProxy对象，
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        List<User> all = mapper.findAllByPage();
+        for (User user : all) {
+            System.out.println(user);
+        }
+    }
 }

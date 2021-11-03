@@ -31,21 +31,21 @@ public class NettyClient {
     //编写方法使用代理模式，获取一个代理对象
 
     public Object getBean(final Class<?> serivceClass, final String providerName) {
-        byte[] bytes = ProxyGenerator.generateProxyClass("Proxy1", new Class[]{serivceClass});
-        try {
-            FileOutputStream fos = new FileOutputStream("E:/Java/project/learning/netty/src/main/java/com/ot/netty/dubborpc/netty/Proxy1.class");
-            fos.write(bytes);
-            fos.close();
-        }catch (Exception e){
-
-        }
+//        byte[] bytes = ProxyGenerator.generateProxyClass("Proxy1", new Class[]{serivceClass});
+//        try {
+//            FileOutputStream fos = new FileOutputStream("E:/Java/project/learning/netty/src/main/java/com/ot/netty/dubborpc/netty/Proxy1.class");
+//            fos.write(bytes);
+//            fos.close();
+//        } catch (Exception e) {
+//
+//        }
         return Proxy.newProxyInstance(
                 Thread.currentThread().getContextClassLoader(),
                 new Class[]{serivceClass},
                 new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        System.out.println("(proxy, method, args) 进入...." + (++count) + " 次");
+//                        System.out.println("(proxy, method, args) 进入...." + (++count) + " 次");
                         //部分的代码，客户端每调用一次 hello, 就会进入到该代码
                         //设置要发给服务器端的信息
                         //providerName 协议头 args[0] 就是客户端调用api hello(???), 参数
@@ -83,8 +83,4 @@ public class NettyClient {
         }
     }
 
-//    //初始化客户端
-//    private static void initClient() {
-//
-//    }
 }

@@ -20,7 +20,7 @@ public class ScheduleThreadPoolExecutorTest {
             public void run() {
                 try {
                     TimeUnit.SECONDS.sleep(10);
-                    int a = 1 / 0;
+//                    int a = 1 / 0;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

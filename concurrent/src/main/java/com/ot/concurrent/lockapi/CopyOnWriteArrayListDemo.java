@@ -1,5 +1,7 @@
 package com.ot.concurrent.lockapi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
@@ -26,13 +28,14 @@ public class CopyOnWriteArrayListDemo {
 
     public static void main(String[] args) throws InterruptedException {
         CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
+//        List<Integer> list=new ArrayList<>(1000);
         //频繁变化对象引用，原来的对象失去指引
         Stream.of("t1", "t2", "t3").forEach(t -> new Thread(() -> {
-            for (int i = 1; i < 6; i++) {
+            for (int i = 0; i < 100; i++) {
                 list.add(i);
             }
         }, t).start());
         Thread.sleep(100);
-        System.out.println(list);
+        System.out.println(list.size());
     }
 }

@@ -51,7 +51,6 @@
         <module>hadoop1</module>
         <module>reactor</module>
         <module>spring-session-login</module>
-        <module>java-system-manage</module>
         <module>poi</module>
         <module>lucene</module>
     </modules>

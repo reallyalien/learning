@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 public class ZkLock {
 
-    private static final String CONNECTSTRING = "192.168.100.187:2181";
+    private static final String CONNECTSTRING = "192.168.140.128:2181,192.168.140.128:2182,192.168.140.128:2183";
     private static final String LOCKPATH = "/pay/lock";
     private static CuratorFramework client =
             CuratorFrameworkFactory

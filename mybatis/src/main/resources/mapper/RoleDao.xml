@@ -5,5 +5,6 @@
 <!--namespace是当前mapper文件的全局id,接口代理对象的规范-->
 <mapper namespace="com.ot.mybatis.dao.RoleDao">
 
+    <cache/>
 
 </mapper>

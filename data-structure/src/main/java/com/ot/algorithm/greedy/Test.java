@@ -13,7 +13,7 @@ public class Test {
 
         Set<String> set2=new HashSet<>();
         set2.add("1");
-        set2.add("2");
+        set2.add("20");
         set2.add("200");
 
         //求交集，set1是交集的内容

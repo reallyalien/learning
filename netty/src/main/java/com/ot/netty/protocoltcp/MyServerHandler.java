@@ -17,7 +17,7 @@ public class MyServerHandler extends SimpleChannelInboundHandler<MessageProtocol
     }
 
     /**
-     * 由于服务端一次读取到的字节数是不确定，所以造成拆开喝粘包情况
+     * 由于服务端一次读取到的字节数是不确定，所以造成粘包情况
      *
      * @param ctx
      * @param msg

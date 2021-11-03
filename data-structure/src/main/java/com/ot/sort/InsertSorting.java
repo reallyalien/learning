@@ -38,17 +38,17 @@ public class InsertSorting {
 
     public static int[] sort1(int[] arr) {
         int val = 0;
-        int index = 0;
         for (int i = 1; i < arr.length; i++) {
-            val = arr[i];
-            index = i - 1;
-            while (index >= 0 && val < arr[index]) {
-                arr[index + 1] = arr[index];
-                index--;
+            int j = i;
+            val = arr[j];
+            while (j - 1 >= 0 && val < arr[j - 1]) {
+                arr[j] = arr[j - 1];
+                j--;
             }
             //退出while循环时,val已经大于arr[index]，自然要插入到arr[index]的后一个
-            arr[index+1] = val;
+            arr[j] = val;
         }
         return arr;
     }
+
 }

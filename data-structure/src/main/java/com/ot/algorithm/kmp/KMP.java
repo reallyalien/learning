@@ -3,29 +3,28 @@ package com.ot.algorithm.kmp;
 import java.util.Arrays;
 
 /**
- *  0  1  2  3   4  5  6  7  8
- *  A  B  A  B  C   A  B  A  A
- * [0, 0, 1, 2, 0, 1, 2, 3,  1]
- */
-
-/**
  * kmp算法
- * .获取部分匹配表
+ * .获取部分匹配表(PMT) ,当中的值是字符串的前缀集合和后缀集合的交集当中最长元素的长度
+ * 主字符串在第i位匹配失败，也就是主字符串的(i-j)到(i-1)这一段与模式字符串的第0位到 PMT[j-1]是完全匹配的
+ * 为什么是j-1，是因为在第j位已经匹配不上了，因此要向前一位看看之前
  */
 public class KMP {
 
     public static void main(String[] args) {
+        // 10 16 6
         String str1 = "BBC ABCDAB ABCDABCDABDE";
         String str2 = "ABCDABD";
-        int[] as = kmpNext("ABABCABAA");
+        int[] as = kmpNext(str2);
         System.out.println(Arrays.toString(as));
-//        int index = match(str1, str2, as);
+        int index = match(str1, str2, as);
 //        System.out.println(index);
 
     }
 
     /**
-     * 获取字串的部分匹配值
+     * 获取字串的部分匹配值,需要先获取部分匹配表
+     * 求解部分匹配表的过程相当于 以模式字符串位主字符串，以模式字符串的前缀为目标字符串，一旦字符串匹配成功，那么当前next的值就是匹配
+     * 成功的的字符串的长度
      */
     public static int[] kmpNext(String dest) {
         //保存部分匹配值
@@ -36,7 +35,8 @@ public class KMP {
             //这是kmp算法的基础,j>0说明之前有匹配到，所以才要获取相等的时候，否则也就没必要进来这个while，
             //只要不相等，就一直向前寻找相等的时候
             while (j > 0 && dest.charAt(i) != dest.charAt(j)) {
-                j = next[j - 1];//j-1理解为减少一次匹配，
+                //也就是第i位与第j位不匹配了，也就是
+                j = next[j - 1];
             }
             //这个if条件，必然会先于上面的while语句执行
             if (dest.charAt(i) == dest.charAt(j)) {//满足时，部分匹配值+1
@@ -57,6 +57,7 @@ public class KMP {
             if (str1.charAt(i) == str2.charAt(j)) {
                 j++;
             }
+            //已经可以匹配到了
             if (j == str2.length()) {
                 return i - j + 1;
             }

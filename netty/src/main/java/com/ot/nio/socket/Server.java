@@ -25,7 +25,7 @@ public class Server {
         //2.切换非阻塞模式
         serverSocketChannel.configureBlocking(false);
         //3.绑定端口
-        serverSocketChannel.socket().bind(new InetSocketAddress(9998));
+        serverSocketChannel.bind(new InetSocketAddress(9998));
         //4.获取选择器
         Selector selector = Selector.open();
         //5.将通道注册到选择器上，并且指定监听接收事件这个类型 16
@@ -40,7 +40,8 @@ public class Server {
         //使用select()来监听，它会一直阻塞，直到至少一个事件到达,超时不等待
         while (true) {
             if (selector.select(2000) == 0) {
-//                System.out.println("等待了2s没有监听到事件，去做其他事情");
+                System.out.println("等待了2s没有监听到事件，去做其他事情");
+                int 啊=10;
             }
             System.out.println("正在等待事件就绪");
             if (selector.select(2000) > 0) {
@@ -75,7 +76,7 @@ public class Server {
                     //每一个事件关键字被处理完之后都必须移除，否则下一次轮询时，这个事件会被重复处理
                     it.remove();
                     //close方法，先唤醒被阻塞的线程，置空所有的通道，所有就绪的slectkey，让这个选择器的轮询组件也停下来
-                    //selector.close();
+//                    selector.close();
                 }
             }
 

@@ -7,8 +7,8 @@ package com.ot.algorithm.kmp;
 public class ViolenceMatch {
 
     public static void main(String[] args) {
-        String str1 = "尚硅谷 尚硅谷你尚硅谷你尚硅你好";
-        String str2 = "尚硅谷你尚硅你";
+        String str1 = "BBC ABCDAB ABCDABCDABDE";
+        String str2 = "ABCDABD";
         int match = match(str1, str2);
         System.out.println(match);
     }
@@ -25,6 +25,7 @@ public class ViolenceMatch {
                 i++;
                 j++;
             } else {
+                //i-已匹配到的然后在向后移动1位，i进行回溯
                 i = i - j + 1;
                 j = 0;
             }
@@ -32,6 +33,8 @@ public class ViolenceMatch {
         }
         //判断是否匹配成功
         if (j == s2) {
+            System.out.println("匹配成功");
+            //返回匹配开始的位置
             return i - j;
         }
         return -1;

@@ -8,7 +8,7 @@ public class Dac {
     private static int count = 0;
 
     public static void main(String[] args) {
-        resolve(40, 'a', 'b', 'c');
+        resolve(3, 'a', 'b', 'c');
         //64次 ：1844 6744 0737 0955 1615     2的64次方-1  如果1s钟一次的话，大概就是5800亿年
         System.out.println(count);
     }
@@ -20,7 +20,7 @@ public class Dac {
 //            System.out.println("第1个盘从" + a + "->" + c);
         } else {
             //总是看作2个盘
-            //把最上面的盘移动到b，中间借组c
+            //把最上面的盘移动到b，中间借组c，除了最大的那一个
             resolve(n - 1, a, c, b);
             //把最下面的盘移动到c
 //            System.out.println("第" + n + "个盘从" + a + "->" + c);

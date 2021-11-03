@@ -1,7 +1,7 @@
 package com.ot.netty.simple;
 
 /**
- * 十进制有符号和无符号数
+ * 十进制有符号和无符号数在jdk里没有无符号数，
  */
 public class Number2 {
 

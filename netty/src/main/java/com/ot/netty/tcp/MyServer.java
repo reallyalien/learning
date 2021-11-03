@@ -7,6 +7,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+/**
+ * https://mp.weixin.qq.com/s/E1-gsyAxV_rQPFfsja3tPQ   tcp连接
+ */
 public class MyServer {
     public static void main(String[] args) throws Exception {
 

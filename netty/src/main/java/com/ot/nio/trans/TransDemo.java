@@ -11,10 +11,10 @@ import java.nio.channels.Pipe;
 public class TransDemo {
 
     /**
-     * 680M文件，测试不同api传输速度
+     * 273M文件，测试不同api传输速度
      */
-    private static final String source = "E:/develop/IDEA/ideaIU-2019.2.4.exe";
-    private static final String target = "E:/develop/IDEA/ideaIU-2019.2.4-copy.exe";
+    private static final String source = "d:/test/1.exe";
+    private static final String target = "d:/test/2.exe";
 
     /**
      * 每读取一次字节都需要跟操作系统做交互，
@@ -29,14 +29,13 @@ public class TransDemo {
         int len = 0;
         long start = System.currentTimeMillis();
         while ((len = fileInputStream.read(bytes)) != -1) {
-
             fileOutputStream.write(bytes, 0, len);
         }
         fileInputStream.close();
         fileOutputStream.flush();
         fileOutputStream.close();
         long end = System.currentTimeMillis();
-        System.out.println("耗时：" + (end - start));//6200ms
+        System.out.println("耗时：" + (end - start));//2172
     }
 
     @Test
@@ -58,7 +57,7 @@ public class TransDemo {
         fileOutputStream.flush();
         fileOutputStream.close();
         long end = System.currentTimeMillis();
-        System.out.println("耗时：" + (end - start));//2500ms
+        System.out.println("耗时：" + (end - start));//433
     }
 
     @Test
@@ -80,7 +79,7 @@ public class TransDemo {
         fileOutputStream.flush();
         fileOutputStream.close();
         long end = System.currentTimeMillis();
-        System.out.println("耗时：" + (end - start));//6200ms
+        System.out.println("耗时：" + (end - start));//1396
     }
 
     @Test
@@ -97,7 +96,7 @@ public class TransDemo {
         fileOutputStream.flush();
         fileOutputStream.close();
         long end = System.currentTimeMillis();
-        System.out.println("发送的文件大小：" + (l / 1024 / 1024) + "MB,耗时：" + (end - start));//900ms
+        System.out.println("发送的文件大小：" + (l / 1024 / 1024) + "MB,耗时：" + (end - start));//170
     }
 
     @Test
@@ -110,6 +109,6 @@ public class TransDemo {
         MappedByteBuffer mappedByteBuffer = inChannel.map(FileChannel.MapMode.READ_WRITE, 0, inChannel.size());
         outChannel.write(mappedByteBuffer);
         long end = System.currentTimeMillis();
-        System.out.println("发送的文件大小：" + (inChannel.size() / 1024 / 1024) + "MB,耗时：" + (end - start));//10000ms
+        System.out.println("发送的文件大小：" + (inChannel.size() / 1024 / 1024) + "MB,耗时：" + (end - start));//381
     }
 }

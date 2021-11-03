@@ -25,7 +25,7 @@ public class INetAddressApi {
         //连接到DNS服务器来解析主机名
         InetAddress inetAddress=null;
         try {
-            inetAddress=InetAddress.getByName("14.215.177.38");
+            inetAddress=InetAddress.getByName("113.142.52.233");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

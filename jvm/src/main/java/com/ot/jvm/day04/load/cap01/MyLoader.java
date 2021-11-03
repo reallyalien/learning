@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- *
  * 这里我们重写了loadClass方法，打破了双亲委派模型，故这里的类由我们自定义的类加载器去加载
  * 若不想打破双亲委派模型，则重写findClass方法，loadClass方法会自动调用我们的findclass方法
- *
- * */
-public class MyLoader extends ClassLoader{
+ */
+public class MyLoader extends ClassLoader {
 
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {

@@ -10,10 +10,12 @@ import java.nio.charset.Charset;
 public class ServerHandler2 extends ChannelInboundHandlerAdapter {
 
     @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//        System.out.println(2);
+    }
+
+    @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("当前服务端2的io线程："+Thread.currentThread());
-        EventLoop eventExecutors = ctx.pipeline().channel().eventLoop();
-        System.out.println("当前服务端2的eventloop线程："+eventExecutors);
         ByteBuf buf = (ByteBuf) msg;
         byte[] bytes = new byte[buf.readableBytes()];
         buf.readBytes(bytes);

@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class ShellSorting {
 
     public static void main(String[] args) {
-        int[] arr = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 98, 788, 72};
+        int[] arr = {-100, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 98, 788, 72, 89, -76};
         int[] ints = moveSort1(arr);
 //        int[] ints = exchangeSort(arr);
         System.out.println(Arrays.toString(ints));
@@ -88,16 +88,19 @@ public class ShellSorting {
         return arr;
     }
 
+    //希尔移动插入排序，缩小增量排序
     public static int[] moveSort1(int[] arr) {
         int val = 0;
         for (int gap = arr.length / 2; gap > 0; gap /= 2) {
             for (int i = gap; i < arr.length; i++) {
-                val = arr[i];
-                while (i - gap >= 0 && val < arr[i - gap]) {
-                    arr[i] = arr[i - gap];
-                    i -= gap;
+                //这里使用一个新的变量j，不要修改这里的i，否则会影响下一次循环
+                int j = i;
+                val = arr[j];
+                while (j - gap >= 0 && val < arr[j - gap]) {
+                    arr[j] = arr[j - gap];
+                    j -= gap;
                 }
-                arr[i] = val;
+                arr[j - gap + gap] = val;
             }
         }
         return arr;

@@ -17,6 +17,7 @@ public class A {
                 }
                 if (i == per) {
                     i = 0;
+                    //找到所要插入的位置，然后这个count就算找到了，因此结束循环
                     break;
                 }
             } while (true);

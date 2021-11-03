@@ -66,7 +66,7 @@ public class Prim {
             int minWeight = 10000;//初始化一个较大值，后面在遍历过程当中会被替换
             //因为有graph.vertex顶点，这个结束之后会有graph.vertex-1条边
             for (int k = 1; k < graph.vertex; k++) {     //遍历所有的节点
-                //这个双层佛如、循环还是会遍历整个图去寻找满足条件的节点
+                //这个双层循环还是会遍历整个图去寻找满足条件的节点
                 //每一次生成的子图和哪个节点的距离最近
                 for (int i = 0; i < graph.vertex; i++) { //遍历已经访问过的节点
                     for (int j = 0; j < graph.vertex; j++) { //遍历还没有访问过的节点
@@ -98,7 +98,5 @@ public class Prim {
             data = new char[vertex];
             weight = new int[vertex][vertex];
         }
-
-
     }
 }

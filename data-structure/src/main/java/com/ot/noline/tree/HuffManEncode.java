@@ -26,7 +26,7 @@ public class HuffManEncode {
     //这里我们直接利用HuffManTree当中的方法，在node当中增加一个属性
 
     public static void main(String[] args) {
-        String str = "i like like like java do you like a java";//共40个字符
+        String str = "i like like like java do you like a javaa";//共40个字符
         byte[] encode = encode(str);
         String decode = decode(encode, huffManCodes);
 //        System.out.println(Arrays.toString(encode));

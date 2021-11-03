@@ -10,7 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 public class BufferMethod {
 
-    private ByteBuffer buffer = ByteBuffer.allocateDirect(20);
+    /**
+     * position limit capacity
+     */
+    private ByteBuffer buffer = ByteBuffer.allocate(20);
     private int time = 1_0000_0000;
 
     @Test
@@ -43,7 +46,7 @@ public class BufferMethod {
         System.out.println(buffer);
         buffer.get(3);//加索引获取值的方法不会改变position的值
         System.out.println(buffer);
-        System.out.println(new String(buffer.array(),0,buffer.position()));//get并没有清除buffer里的值
+        System.out.println(new String(buffer.array(), 0, buffer.position()));//get并没有清除buffer里的值
     }
 
     @Test
@@ -136,11 +139,15 @@ public class BufferMethod {
             ByteBuffer buffer = ByteBuffer.allocate(2);
         }
         long end = System.currentTimeMillis();
-        System.out.println(end - start);//335
+        System.out.println(end - start);//1218
     }
 
     /**
      * 直接内存和分配时间 太慢了在数据量大的情况下，很慢很慢
+     * 1.直接内存不受java虚拟机所约束，减少垃圾回收，垃圾回收会暂停线程，减少GC，进程间可以共享，减少虚拟机复制时间
+     * 2.加快了复制的速度，堆内在flush到远程时，需要先复制到直接内存然后再发送，直接内存就省略了这一步
+     * <p>
+     * 3.直接内存不好管理，发生内存泄露不好排查
      */
     @Test
     public void allocateDirectTime() {
@@ -149,15 +156,19 @@ public class BufferMethod {
             ByteBuffer buffer = ByteBuffer.allocateDirect(2);
         }
         long end = System.currentTimeMillis();
-        System.out.println(end - start);  //47670
+        System.out.println(end - start);  //40895
     }
+
     @Test
-    public void remain(){
+    public void remain() {
         buffer.put("abc".getBytes());
         System.out.println(Arrays.toString(buffer.array()));
-        byte[] bytes = new byte[buffer.position()];
-        buffer.get(bytes);
-        System.out.println(Arrays.toString(bytes));
-        System.out.println();
+    }
+
+    @Test
+    public void a() {
+        byte[] arr = {1, 2, 3};
+        ByteBuffer wrap = ByteBuffer.wrap(arr);
+        System.out.println(wrap);
     }
 }

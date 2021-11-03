@@ -1,8 +1,15 @@
 package com.ot.noline.tree;
 
+import java.util.Stack;
+
 /**
- * 二叉排序树
+ * 二叉排序树 中序遍历的结果就是排序结果
  * 左子节点的< 节点 < 右子节点
+ * <p>
+ * 7
+ * 3        10
+ * 1      5   9     12
+ * 2
  */
 public class BinarySortTree {
 
@@ -15,14 +22,7 @@ public class BinarySortTree {
             tree.add(new Node(arr[i]));
         }
         tree.infixOrder();
-        tree.delNode(5);
-        tree.delNode(1);
-        tree.delNode(9);
-        tree.delNode(10);
-        tree.delNode(12);
         tree.delNode(7);
-        tree.delNode(3);
-        tree.delNode(2);
         System.out.println(tree.root);
         System.out.println("===========================");
         tree.infixOrder();
@@ -39,7 +39,7 @@ public class BinarySortTree {
 
     public void infixOrder() {
         if (root == null) return;
-        root.infixOrder();
+        root.infixOrder1();
     }
 
     public void preOrder() {
@@ -72,9 +72,13 @@ public class BinarySortTree {
         }
         //查找父节点
         Node parent = findParent(val);
-        //如果在删除节点当中parnet为空，说明当前删除的跟节点，直接把根节点指向左节点
+        //如果在删除节点当中parent为空，说明当前删除的跟节点，直接把根节点指向左节点
         if (parent == null) {
-            root = target.left;
+            //删除的是跟节点，从右子树当中寻找最小的数
+            int i = delRightMin(root.right);
+            root.value = i;
+            //这里其实没有真正删除，只是使用右边字数的最小值来替换root的值
+            //注意，这里执行完之后要return，因为已经删除掉
             return;
         }
         //如果要删除的是叶子节点
@@ -85,24 +89,25 @@ public class BinarySortTree {
             } else {
                 parent.right = null;
             }
-        } else if (target.left != null && target.left != null) {
+        } else if (target.left != null && target.right != null) {
             //要删除的节点有2个子树
             //从要删除的节点的右子树找到最小的数,一直往左边找
             int rightMin = delRightMin(target.right);
             //替换
             target.value = rightMin;
         } else {
-            //删除只有一个子树的节点
+            //当前节点只有一个子树的节点，
+            //如果当前节点存在左子树
             if (target.left != null) {
-                //要删除的节点有左子节点
-                if (parent.left != null && parent.left.value == val) {
+                //判断要删除的节点是父节点的左还是右
+                if (parent.left != null && parent.left.value.equals(val)) {
                     parent.left = target.left;
                 } else {
                     parent.right = target.left;
                 }
             } else {
                 //要删除的节点有右子节点
-                if (parent.left != null && parent.left.value == val) {
+                if (parent.left != null && parent.left.value.equals(val)) {
                     parent.left = target.right;
                 } else {
                     parent.right = target.right;
@@ -190,6 +195,36 @@ public class BinarySortTree {
             }
         }
 
+        public void preOrder1() {
+            Stack<Node> stack = new Stack<>();
+            stack.push(this);
+            while (!stack.isEmpty()) {
+                Node pop = stack.pop();
+                if (pop == null) {
+                    continue;
+                }
+                System.out.println(pop);
+                stack.push(pop.right);
+                stack.push(pop.left);
+            }
+        }
+
+        public void infixOrder1() {
+            Stack<Node> stack = new Stack<>();
+            Node cur = this;
+            while (cur != null || !stack.isEmpty()) {
+                while (cur != null) {
+                    stack.push(cur);
+                    cur = cur.left;
+                }
+                if (!stack.isEmpty()) {
+                    cur = stack.pop();
+                    System.out.println(cur);
+                    cur = cur.right;
+                }
+            }
+        }
+
         /**
          * 查找节点
          *
@@ -214,7 +249,7 @@ public class BinarySortTree {
         /**
          * 查找父节点
          *
-         * @param value
+         * @param value 查找此节点的父节点
          * @return
          */
         public Node findParent(Integer value) {

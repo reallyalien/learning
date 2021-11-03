@@ -9,7 +9,7 @@ public class CircleQueue {
     private int maxSize;//数组的最大容量
     private int front;//队列头元素的位置
     private int rear;//队列尾部的元素的下一个,更准确的说rear一直指向动态的预留空间,预留空间其实一直在改变
-    //如果不预留空间，队列满还是空的判断条件是一样的，无法
+    //如果不预留空间，队列满还是空的判断条件是一样的，无法做除法运算
     private int[] arr;//实际存储元素的大小只有maxSize-1个元素
 
     public CircleQueue(int maxSize) {
