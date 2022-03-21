@@ -53,5 +53,7 @@
         <module>spring-session-login</module>
         <module>poi</module>
         <module>lucene</module>
+        <module>es</module>
+        <module>mybatis-generator</module>
     </modules>
 </project>

@@ -1,0 +1,72 @@
+{
+  "doc":{
+    "properties":{
+      "docName":{
+        "type": "keyword",
+        "fields": {
+          "pinyin": {
+            "type": "text",
+            "analyzer": "pinyinSimpleIndexAnalyzer_full",
+            "search_analyzer": "pinyinSimpleIndexAnalyzer_full"
+          }
+        }
+      },
+      "deptName":{
+        "type": "keyword",
+        "fields": {
+          "pinyin": {
+            "type": "text",
+            "analyzer": "pinyinSimpleIndexAnalyzer_full",
+            "search_analyzer": "pinyinSimpleIndexAnalyzer_full"
+          }
+        }
+      },
+      "title":{
+        "type": "keyword",
+        "fields": {
+          "pinyin": {
+            "type": "text",
+            "analyzer": "pinyinSimpleIndexAnalyzer_full",
+            "search_analyzer": "pinyinSimpleIndexAnalyzer_full"
+          }
+        }
+      },
+      "intro":{
+        "type": "text",
+        "analyzer": "ik_max_word_pinyin",
+        "search_analyzer": "ik_smart_pinyin",
+        "fields": {
+          "pinyin": {
+            "type": "text",
+            "analyzer": "pinyinSimpleIndexAnalyzer",
+            "search_analyzer": "pinyinSimpleIndexAnalyzer"
+          }
+        }
+      },
+      "special":{
+        "type": "text",
+        "analyzer": "ik_max_word_pinyin",
+        "search_analyzer": "ik_smart_pinyin",
+        "fields": {
+          "pinyin": {
+            "type": "text",
+            "analyzer": "pinyinSimpleIndexAnalyzer",
+            "search_analyzer": "pinyinSimpleIndexAnalyzer"
+          }
+        }
+      },
+      "labels":{
+        "type": "text",
+        "analyzer": "ik_max_word_pinyin",
+        "search_analyzer": "ik_smart_pinyin",
+        "fields": {
+          "pinyin": {
+            "type": "text",
+            "analyzer": "pinyinSimpleIndexAnalyzer",
+            "search_analyzer": "pinyinSimpleIndexAnalyzer"
+          }
+        }
+      }
+    }
+  }
+}

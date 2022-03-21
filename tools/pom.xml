@@ -12,21 +12,34 @@
     <artifactId>tools</artifactId>
 
     <dependencies>
+
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.poi/poi &ndash;&gt;-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>4.1.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
             <version>4.1.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.2</version>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-examples -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-excelant -->
+        <!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/fr.opensagres.xdocreport.document -->
         <dependency>
             <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>fr.opensagres.xdocreport.document</artifactId>
@@ -62,35 +75,44 @@
             <artifactId>junit</artifactId>
             <version>4.13</version>
         </dependency>
-        <dependency>
-            <groupId>com.dm</groupId>
-            <artifactId>dmjdbc7</artifactId>
-            <version>1.7.0</version>
-        </dependency>
-        <!--人大金仓 -->
-        <dependency>
-            <groupId>com.kingbase8</groupId>
-            <artifactId>kingbase8</artifactId>
-            <version>V008R003B1009</version>
-        </dependency>
-        <!-- 南大通用 -->
-        <dependency>
-            <groupId>com.esen.jdbc</groupId>
-            <artifactId>gbase</artifactId>
-            <version>8.3.81.53</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.dm</groupId>-->
+<!--            <artifactId>dmjdbc7</artifactId>-->
+<!--            <version>1.7.0</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;人大金仓 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.kingbase8</groupId>-->
+<!--            <artifactId>kingbase8</artifactId>-->
+<!--            <version>V008R003B1009</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; 南大通用 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.esen.jdbc</groupId>-->
+<!--            <artifactId>gbase</artifactId>-->
+<!--            <version>8.3.81.53</version>-->
+<!--        </dependency>-->
         <!--神通数据库-->
-        <dependency>
-            <groupId>com.oscar</groupId>
-            <artifactId>oscarJDBC</artifactId>
-            <version>1.6</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.oscar</groupId>-->
+<!--            <artifactId>oscarJDBC</artifactId>-->
+<!--            <version>1.6</version>-->
+<!--        </dependency>-->
         <!--neo4j驱动 -->
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-jdbc-driver</artifactId>
             <version>4.0.1</version>
         </dependency>
+
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.neo4j/neo4j &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.neo4j</groupId>-->
+        <!--            <artifactId>neo4j</artifactId>-->
+        <!--            <version>4.0.1</version>-->
+        <!--        </dependency>-->
+
+
         <dependency>
             <groupId>com.ot</groupId>
             <artifactId>mybatis</artifactId>
@@ -191,11 +213,34 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>9.2.1.jre8</version>
         </dependency>
+        <!--pg-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>dcm4che</groupId>
+            <artifactId>dcm4che-core</artifactId>
+            <version>2.0.29</version>
+        </dependency>
 
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <version>12.2.0.1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <version>2.0.8.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>2.3.9.RELEASE</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.24</version>
         </dependency>
     </dependencies>
 </project>

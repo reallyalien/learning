@@ -1,0 +1,76 @@
+{
+  "index": {
+    "analysis": {
+      "analyzer": {
+        "ik_pinyin_analyzer": {
+          "type": "custom",
+          "tokenizer": "ik_smart",
+          "filter": [
+            "my_pinyin",
+            "lowercase"
+          ]
+        },
+        "ik_smart_pinyin": {
+          "type": "custom",
+          "tokenizer": "ik_smart",
+          "filter": ["my_pinyin"]
+        },
+        "ik_max_word_pinyin": {
+          "type": "custom",
+          "tokenizer": "ik_max_word",
+          "filter": ["my_pinyin"]
+        },
+        "pinyinSimpleIndexAnalyzer": {
+          "tokenizer": "keyword",
+          "filter": [
+            "my_pinyin",
+            "lowercase"
+          ]
+        },
+        "ik_smart_pinyin_full": {
+          "type": "custom",
+          "tokenizer": "ik_smart",
+          "filter": ["my_pinyin_full"]
+        },
+        "ik_max_word_pinyin_full": {
+          "type": "custom",
+          "tokenizer": "ik_max_word",
+          "filter": ["my_pinyin_full"]
+        },
+        "pinyinSimpleIndexAnalyzer_full": {
+          "tokenizer": "keyword",
+          "filter": [
+            "my_pinyin",
+            "lowercase"
+          ]
+        }
+      },
+      "filter": {
+        "my_pinyin": {
+          "type" : "pinyin",
+          "keep_first_letter" : false,
+          "keep_full_pinyin" : false,
+          "keep_joined_full_pinyin": true,
+          "keep_none_chinese" : true,
+          "keep_original" : true,
+          "limit_first_letter_length" : 16,
+          "lowercase" : true,
+          "trim_whitespace" : true,
+          "keep_none_chinese_in_first_letter" : false
+        },
+        "my_pinyin_full": {
+          "type" : "pinyin",
+          "keep_first_letter" : true,
+          "keep_full_pinyin" : true,
+          "keep_joined_full_pinyin": false,
+          "keep_none_chinese" : true,
+          "keep_original" : true,
+          "limit_first_letter_length" : 16,
+          "lowercase" : true,
+          "trim_whitespace" : true,
+          "keep_none_chinese_in_first_letter" : false
+        }
+      }
+    }
+  }
+}

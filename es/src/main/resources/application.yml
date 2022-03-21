@@ -1,0 +1,10 @@
+#Elasticsearch
+spring:
+  data:
+    elasticsearch:
+      #节点名称
+      cluster-name: cluster
+      cluster-nodes: 192.168.1.40:9300
+      #是否开启本地存储
+      repositories:
+        enabled: true
