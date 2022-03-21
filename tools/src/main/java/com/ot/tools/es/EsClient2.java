@@ -11,8 +11,11 @@ import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
+import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,12 +35,9 @@ public class EsClient2 {
      */
     @Before
     public void connection() throws IOException {
-        // 如果有多个从节点可以持续在内部new多个HttpHost，参数1是IP，参数2是端口，参数3是通信协议
         RestClientBuilder clientBuilder = RestClient.builder(new HttpHost("192.168.1.40", 9200, "http"));
-        // 设置Header编码
         Header[] defaultHeaders = {new BasicHeader("content-type", "application/json")};
         clientBuilder.setDefaultHeaders(defaultHeaders);
-        // 添加其他配置，这些配置都是可选的，详情配置可看https://blog.csdn.net/jacksonary/article/details/82729556
         client = clientBuilder.build();
     }
 
@@ -95,11 +95,16 @@ public class EsClient2 {
         while ((rc = inputStream.read(buff, 0, 100)) > 0) {
             outStream.write(buff, 0, rc);
         }
-        //合并之后的字节数组
         byte[] merge = outStream.toByteArray();
         String s = new String(merge);
         System.out.println("============================");
         System.out.println(s);
     }
+
+    private DocInfoDao docInfoDao;
+
+
+
+
 
 }

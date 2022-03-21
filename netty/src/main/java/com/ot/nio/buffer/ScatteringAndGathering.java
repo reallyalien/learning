@@ -34,7 +34,9 @@ public class ScatteringAndGathering {
                 len += l;//累计读取字节数
                 System.out.println("read:" + len);
                 //使用流打印
-                Arrays.asList(byteBuffers).stream()
+                Arrays
+                        .asList(byteBuffers)
+                        .stream()
                         .map(buffer -> "position= " + buffer.position() +"\t"+ "limit=" + buffer.limit())
                         .forEach(System.out::println);
             }
