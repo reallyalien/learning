@@ -1,5 +1,6 @@
 package com.ot.tools.faker;
 
+
 public class User {
 
     private String reallyName;
@@ -7,6 +8,20 @@ public class User {
     private String universityName;
     private String city;
     private String address;
+    private int age;
+
+    public User(String reallyName, int age) {
+        this.reallyName = reallyName;
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public String getReallyName() {
         return reallyName;
