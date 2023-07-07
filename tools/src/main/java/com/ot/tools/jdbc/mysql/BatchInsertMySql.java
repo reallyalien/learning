@@ -34,7 +34,7 @@ public class BatchInsertMySql {
         // 开始时间
         Long begin = new Date().getTime();
         // sql前缀
-        String prefix = "INSERT INTO dept (dname,db_source) VALUES ";
+        String prefix = "INSERT INTO test1 (dname,db_source) VALUES ";
         try {
             // 保存sql后缀
             StringBuffer suffix;

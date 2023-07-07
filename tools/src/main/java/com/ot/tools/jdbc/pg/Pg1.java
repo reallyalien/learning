@@ -1,14 +1,10 @@
 package com.ot.tools.jdbc.pg;
 
-import com.ot.tools.jdbc.common.ColumnDescription;
-import com.ot.tools.jdbc.common.CommonDb;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class Pg {
+public class Pg1 {
 
     private static final String url = "jdbc:postgresql://192.168.197.110:5432/chunjun_test";
     private static final String driver = "org.postgresql.Driver";
