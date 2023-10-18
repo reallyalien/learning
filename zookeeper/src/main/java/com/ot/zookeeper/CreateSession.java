@@ -4,6 +4,7 @@ import org.apache.zookeeper.*;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
@@ -64,8 +65,6 @@ public class CreateSession {
     }
 
     public static void main(String[] args) {
-        String str="1,2";
-        String[] strings = str.split(",");
-        System.out.println(Arrays.toString(strings));
+        System.out.println(BigDecimal.ZERO);
     }
 }

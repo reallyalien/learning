@@ -55,5 +55,9 @@
         <module>lucene</module>
         <module>es</module>
         <module>mybatis-generator</module>
+        <module>hbase</module>
+        <module>pdf</module>
+        <module>jdbc</module>
+        <module>webmagic-demo</module>
     </modules>
 </project>

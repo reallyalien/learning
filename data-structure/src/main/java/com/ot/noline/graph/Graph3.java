@@ -1,5 +1,7 @@
 package com.ot.noline.graph;
 
+import com.ot.noline.tree.Node;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -8,13 +10,12 @@ import java.util.List;
 /**
  * DFS depth first search
  */
-public class Graph {
+public class Graph3 {
 
 
     public static void main(String[] args) {
-        int n = 5;
-        String[] vertex = {"A", "B", "C", "D", "E"};
-        Graph graph = new Graph(n);
+        String[] vertex = {"A", "B", "C", "D", "E", "F", "G"};
+        Graph3 graph = new Graph3(vertex.length);
         //循环添加顶点
         for (String s : vertex) {
             graph.insertVertex(s);
@@ -22,22 +23,14 @@ public class Graph {
         //循环添加边
         //A-B A-C B-C B-D B-E
         graph.insertEdge(0, 1, 1);
-        graph.insertEdge(0, 2, 1);
         graph.insertEdge(1, 2, 1);
-        graph.insertEdge(1, 3, 1);
-        graph.insertEdge(1, 4, 1);
-        /*
-        [0, 1, 1, 0, 0]
-        [1, 0, 1, 1, 1]
-        [1, 1, 0, 0, 0]
-        [0, 1, 0, 0, 0]
-        [0, 1, 0, 0, 0]
-         */
+        graph.insertEdge(3, 1, 1);
+        graph.insertEdge(3, 4, 1);
+        graph.insertEdge(3, 6, 1);
+        graph.insertEdge(4, 5, 1);
+        graph.insertEdge(6, 5, 1);
         graph.show();
-        //测试深度遍历
-//        graph.dfs();
-//        graph.dfs(graph.visited,0);
-        //测试广度
+
         graph.wfs();
         System.out.println();
     }
@@ -46,8 +39,9 @@ public class Graph {
     private int[][] edges;//存储图对应的邻接矩阵
     private int numOfEdges;//边的数目
     private boolean[] visited;//记录是否被访问
+    private Object[] data;
 
-    public Graph(int n) {
+    public Graph3(int n) {
         //初始化
         edges = new int[n][n];
         vertexList = new ArrayList<>(n);
@@ -70,7 +64,6 @@ public class Graph {
      */
     public void insertEdge(int v1, int v2, int weight) {
         edges[v1][v2] = weight;
-        edges[v2][v1] = weight;
         numOfEdges++;
     }
 
@@ -218,5 +211,17 @@ public class Graph {
                 wfs(visited, i);
             }
         }
+    }
+
+    public void a() {
+        for (int i = 0; i < vertexList.size(); i++) {
+            if (!visited[i]) {
+                a(visited, i);
+            }
+        }
+    }
+
+    public void a(boolean[] visited, int i) {
+
     }
 }

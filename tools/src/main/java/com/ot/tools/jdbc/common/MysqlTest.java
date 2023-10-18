@@ -1,8 +1,5 @@
 package com.ot.tools.jdbc.common;
 
-import com.ot.tools.jdbc.mysql.ColumnDTO;
-import org.apache.commons.lang3.StringUtils;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -44,18 +41,18 @@ public class MysqlTest {
             System.out.println(tablePrimaryKey);
         }
     }
-    public static String getCreateTableSql(String tableName, List<ColumnDTO> columnList) {
-        StringBuilder sb = new StringBuilder(Const.CREATE_TABLE)
-                .append(Const.IF_NOT_EXISTS).append(StringUtils.isBlank(tableName) ? "__" : tableName).append("(\n");
-        for (ColumnDTO columnDTO : columnList) {
-            sb.append(columnDTO.getName()).append(" ").append(columnDTO.getType()).append(" ");
-            if (StringUtils.isNotEmpty(columnDTO.getComment())) {
-                sb.append("comment '").append(columnDTO.getComment()).append("'").append("',");
-            } else {
-                sb.append(",\n");
-            }
-        }
-        String str = sb.substring(0, sb.length() - 2) + ");";
-        return str;
-    }
+//    public static String getCreateTableSql(String tableName, List<ColumnDTO> columnList) {
+//        StringBuilder sb = new StringBuilder(Const.CREATE_TABLE)
+//                .append(Const.IF_NOT_EXISTS).append(StringUtils.isBlank(tableName) ? "__" : tableName).append("(\n");
+//        for (ColumnDTO columnDTO : columnList) {
+//            sb.append(columnDTO.getName()).append(" ").append(columnDTO.getType()).append(" ");
+//            if (StringUtils.isNotEmpty(columnDTO.getComment())) {
+//                sb.append("comment '").append(columnDTO.getComment()).append("'").append("',");
+//            } else {
+//                sb.append(",\n");
+//            }
+//        }
+//        String str = sb.substring(0, sb.length() - 2) + ");";
+//        return str;
+//    }
 }
